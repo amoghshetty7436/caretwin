@@ -133,3 +133,23 @@ def test_openai_compat_agent_round_limit(seeded):
     agent = OpenAICompatAgent(Settings(llm_api_key="k", llm_max_tool_rounds=2), client=httpx.Client(transport=transport))
     res = agent.ask(seeded["driver"], "loop forever")
     assert calls["n"] == 2 and "budget" in res.answer
+
+
+def test_openai_compat_retries_rate_limit(monkeypatch):
+    monkeypatch.setattr("app.assistant.agent.time.sleep", lambda s: None)
+    n = {"calls": 0}
+
+    def handler(request):
+        n["calls"] += 1
+        if n["calls"] == 1:
+            return httpx.Response(429, headers={"retry-after": "1"}, json={"error": "slow down"})
+        return httpx.Response(200, json={"choices": [{"message": {"content": "ok [HOSP]"}}]})
+    agent = OpenAICompatAgent(Settings(llm_api_key="k"), client=httpx.Client(transport=httpx.MockTransport(handler)))
+    assert agent._post({}).status_code == 200 and n["calls"] == 2
+
+
+def test_openai_compat_surfaces_provider_error(seeded):
+    transport = httpx.MockTransport(lambda r: httpx.Response(404, json={"error": {"message": "model not found"}}))
+    agent = OpenAICompatAgent(Settings(llm_api_key="k"), client=httpx.Client(transport=transport))
+    with pytest.raises(httpx.HTTPStatusError, match="model not found"):
+        agent.ask(seeded["driver"], "hello there")

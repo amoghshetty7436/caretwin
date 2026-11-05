@@ -72,11 +72,11 @@ class OpenAICompatAgent:
         calls: list[dict] = []
         answer = ""
         for _ in range(self.s.llm_max_tool_rounds):
-            resp = self.client.post(f"{self.s.llm_base_url.rstrip('/')}/chat/completions",
-                                    headers={"Authorization": f"Bearer {self.s.llm_api_key}"},
-                                    json={"model": self.s.llm_model, "messages": messages, "temperature": 0,
-                                          "tools": T.openai_tool_specs(), "tool_choice": "auto"})
-            resp.raise_for_status()
+            resp = self._post({"model": self.s.llm_model, "messages": messages, "temperature": 0,
+                               "tools": T.openai_tool_specs(), "tool_choice": "auto"})
+            if resp.status_code >= 400:  # surface the provider's reason (bad model id, rate limit, ...)
+                raise httpx.HTTPStatusError(f"{resp.status_code} from LLM provider: {resp.text[:300]}",
+                                            request=resp.request, response=resp)
             msg = resp.json()["choices"][0]["message"]
             tcs = msg.get("tool_calls") or []
             if not tcs:
@@ -93,12 +93,28 @@ class OpenAICompatAgent:
                 calls.append({"tool": name, "args": args, "citations": out["citations"], "result": out["data"]})
                 messages.append({"role": "tool", "tool_call_id": tc.get("id", name), "name": name,
                                  "content": json.dumps({"data": out["data"], "cite_ids": out["citations"]},
-                                                       default=str)[:12000]})
+                                                       default=str)[:6000]})
         else:
             answer = answer or "I could not finish within the tool-call budget."
         cites, grounded = _verify(answer, calls)
         return AssistantResult(answer=answer, citations=cites, tool_calls=_slim(calls), provider=self.s.llm_model,
                                grounded=grounded, latency_ms=(time.perf_counter() - t0) * 1000)
+
+
+    def _post(self, body: dict, retries: int = 6) -> httpx.Response:
+        """POST with backoff on 429/5xx (free tiers enforce tight per-minute limits)."""
+        resp = None
+        for attempt in range(retries):
+            resp = self.client.post(f"{self.s.llm_base_url.rstrip('/')}/chat/completions",
+                                    headers={"Authorization": f"Bearer {self.s.llm_api_key}"}, json=body)
+            if resp.status_code not in (429, 500, 502, 503):
+                return resp
+            try:
+                wait = float(resp.headers.get("retry-after", 0))
+            except ValueError:
+                wait = 0.0
+            time.sleep(min(60.0, max(wait, 2.0 * 2 ** attempt)))
+        return resp
 
 
 def _slim(calls: list[dict]) -> list[dict]:

@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
     inputs:
       model:
-        description: Model id
-        default: llama-3.3-70b-versatile
+        description: Model id, or "auto" to pick a tool-calling model the key can use
+        default: auto
         required: true
       base_url:
         description: OpenAI-compatible base URL
@@ -36,7 +36,6 @@ jobs:
     env:
       CARETWIN_LLM_PROVIDER: openai_compat
       CARETWIN_LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
-      CARETWIN_LLM_MODEL: ${{ inputs.model }}
       CARETWIN_LLM_BASE_URL: ${{ inputs.base_url }}
     steps:
       - uses: actions/checkout@v4
@@ -46,6 +45,26 @@ jobs:
           cache: pip
           cache-dependency-path: backend/requirements*.txt
       - run: pip install -r requirements.txt
+      - name: Choose model
+        run: |
+          python - <<'EOF'
+          import json, os, urllib.request
+          base, want = os.environ["CARETWIN_LLM_BASE_URL"].rstrip("/"), "${{ inputs.model }}"
+          req = urllib.request.Request(f"{base}/models",
+                                       headers={"Authorization": f"Bearer {os.environ['CARETWIN_LLM_API_KEY']}"})
+          ids = sorted(m["id"] for m in json.load(urllib.request.urlopen(req))["data"])
+          print("available models:", ", ".join(ids))
+          prefer = ["openai/gpt-oss-120b", "llama-3.3-70b-versatile", "moonshotai/kimi-k2-instruct-0905",
+                    "moonshotai/kimi-k2-instruct", "qwen/qwen3-32b", "meta-llama/llama-4-maverick-17b-128e-instruct",
+                    "openai/gpt-oss-20b", "meta-llama/llama-4-scout-17b-16e-instruct"]
+          if want != "auto":
+              model = want
+          else:
+              model = next((m for m in prefer if m in ids), None) or next(
+                  m for m in ids if not any(x in m for x in ("whisper", "tts", "guard", "embed", "orpheus")))
+          print("using model:", model)
+          open(os.environ["GITHUB_ENV"], "a").write(f"CARETWIN_LLM_MODEL={model}\n")
+          EOF
       - name: Seed twin (Postgres is optional for the eval)
         run: python -m app.seed > /dev/null
       - name: Score LLM
@@ -66,5 +85,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add eval/results
-          git diff --cached --quiet || git commit -m "eval: LLM assistant results (${{ inputs.model }})"
+          git diff --cached --quiet || git commit -m "eval: LLM assistant results ($CARETWIN_LLM_MODEL)"
           git push

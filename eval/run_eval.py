@@ -50,7 +50,13 @@ def main() -> None:
                  "Re-seed with the default seeds (python -m app.seed).")
     assistant = get_assistant()
     provider = getattr(assistant, "provider", None) or assistant.s.llm_model
-    rows = [grade(q, assistant.ask(d, q["question"]).to_dict()) for q in questions]
+    rows = []
+    for q in questions:
+        try:
+            res = assistant.ask(d, q["question"]).to_dict()
+        except Exception as exc:  # a provider error counts as a wrong answer, not a crashed eval
+            res = {"answer": f"ERROR: {exc}"[:400], "citations": [], "grounded": False, "latency_ms": 0.0}
+        rows.append(grade(q, res))
     by_cat: dict[str, list[int]] = {}
     for r in rows:
         by_cat.setdefault(r["category"], []).append(int(r["correct"]))
