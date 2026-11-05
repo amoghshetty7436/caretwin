@@ -16,23 +16,28 @@ SimPy · Docker · **Terraform (AWS ECS Fargate, RDS, ALB, EFS)** · **GitHub Ac
 
 ---
 
-## Results (measured, not copied from the resume)
+## Results
 
-All numbers below were produced by scripts in this repo on a single 4-vCPU sandbox VM. The VM ran
-Neo4j, Postgres, the API **and** the load generator at the same time. Raw outputs are in
+All numbers below were produced by scripts in this repo on a single 4-vCPU machine that ran
+Neo4j, Postgres, the API and the load generator at the same time. Raw outputs are in
 [`docs/results/`](docs/results) and [`eval/results/`](eval/results).
 
-| Resume claim | What this repo actually measures | Verdict |
-|---|---|---|
-| 300-bed hospital | 300 inpatient beds across 14 wards, plus 24 ED bays, 12 PACU bays and 8 ORs | ✅ matches |
-| 4,100-node graph | **4,066** structural nodes and 11,153 relationships; plus ~267 `Patient` nodes from the live census (≈4,333 total) | ✅ ≈4.1k |
-| 10,000 Synthea patients | **11,509** Synthea records (10,000 alive and 1,509 deceased, as Synthea exports both); 9,629 inpatient admissions in the case-mix pool | ✅ |
-| Calibrated on MIMIC-IV | Calibrated on the **open MIMIC-IV Clinical Database Demo v2.2** (100 patients, 275 admissions). **Not** full MIMIC-IV: that needs credentialed PhysioNet access. | ⚠️ demo subset |
-| Impact queries 38 ms p95 | **17.9 ms p95** (p50 9.4 ms, p99 38.5 ms) over 1,092 warm, sequential queries on 364 targets. Through HTTP under 100-user load, `/api/impact` p95 is 97 ms. | ✅ |
-| Assistant 46/50 hand-labeled questions | **50/50** on the main set and **19/20** on a frozen held-out paraphrase set, using the **offline deterministic planner**. The LLM path is implemented and unit-tested but was **not scored**, because no API key was available in the build environment. | ⚠️ see caveats |
-| Deployed to AWS ECS with Terraform + GitHub Actions | Terraform passes `validate`/`fmt`, and the CI and deploy workflows are written. **Nothing has been deployed** (avoiding ~$40–80/month); you can run the deploy workflow yourself. | ❌ not deployed |
-| 140 tests, 86% coverage | **200 tests** (195 pytest + 5 Vitest), **93% backend line coverage**; CI enforces ≥85% | ✅ |
-| 120 ms p95 at 100 concurrent users | **37 ms p95, 0 failures** across 11.4k requests: 100 users, 1–3 s think time, 64 req/s. With no think time (saturation): **610 ms p95** at 308 req/s, 0 failures | ⚠️ depends on load definition |
+| Area | Result |
+|---|---|
+| Hospital model | 300 inpatient beds across 14 wards, plus 24 ED bays, 12 PACU bays and 8 operating rooms |
+| Graph size | 4,066 structural nodes and 11,153 relationships, plus ~267 `Patient` nodes from the live census (≈4,333 total) |
+| Synthetic population | 11,509 Synthea patient records (10,000 alive, 1,509 deceased); 9,629 inpatient admissions in the case-mix pool; 24,935 encounters in Postgres |
+| Flow calibration | MIMIC-IV Clinical Database Demo v2.2: 100 patients, 275 admissions, 687 unit-stay segments |
+| Failure-impact query latency | **17.9 ms p95** (p50 9.4 ms, p99 38.5 ms) over 1,092 warm, sequential queries on 364 targets |
+| Assistant accuracy (offline planner) | **50/50** on the main question set; **19/20** on a held-out paraphrase set; 100% of answers with verified citations |
+| Tests | **200 tests** (195 pytest + 5 Vitest), **93% backend line coverage**; CI enforces ≥85% |
+| Load test, 100 users, 1–3 s think time | **37 ms p95**, 0 failures, 11.4k requests at 64 req/s (`/api/impact` p95 97 ms over HTTP) |
+| Load test, 100 users, no think time | 610 ms p95 at 308 req/s, 0 failures (saturation point of the single host) |
+| Infrastructure as code | Terraform for AWS ECS Fargate, RDS, ALB, EFS and ECR passes `terraform validate` and `fmt`; CI and manual deploy workflows included (not applied to a live AWS account) |
+
+The LLM assistant path (Groq / Gemini / Ollama) is implemented and unit-tested; the accuracy
+above is for the built-in offline planner. Run `python eval/run_eval.py` with an API key set to
+score an LLM on the same questions.
 
 **Simulation fidelity** ([`docs/results/sim_validation.json`](docs/results/sim_validation.json), 10 seeds × 28 days):
 
