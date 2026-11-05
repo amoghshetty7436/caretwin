@@ -111,3 +111,25 @@ html, body { overflow-x: hidden; }
   .lede { overflow-wrap: anywhere; }
   .main { min-width: 0; }
 }
+
+/* ---- floor plan ---- */
+:root { --acuity-1: #86b6ef; --acuity-2: #5598e7; --acuity-3: #2a78d6; --acuity-4: #1c5cab; --acuity-5: #104281; }
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    --acuity-1: #184f95; --acuity-2: #256abf; --acuity-3: #3987e5; --acuity-4: #6da7ec; --acuity-5: #b7d3f6;
+  }
+}
+:root[data-theme="dark"] { --acuity-1: #184f95; --acuity-2: #256abf; --acuity-3: #3987e5; --acuity-4: #6da7ec; --acuity-5: #b7d3f6; }
+.plan-ward { font-size: 13px; font-weight: 600; fill: var(--ink); }
+.plan-meta { font-size: 11px; fill: var(--muted); }
+.plan-corridor { font-size: 9px; fill: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
+.plan-hit { font-size: 11px; fill: #fff; pointer-events: none; }
+.plan-bed { cursor: pointer; outline: none; }
+.plan-bed:hover rect:nth-of-type(2), .plan-bed:focus rect:nth-of-type(2) { stroke: var(--ink); stroke-width: 2; }
+.plan-tip { position: absolute; z-index: 5; width: 220px; background: var(--surface); border: 1px solid var(--grid);
+  border-radius: 8px; padding: 8px 10px; font-size: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.12); pointer-events: none; }
+.swatch { display: inline-block; width: 12px; height: 16px; border-radius: 3px; }
+.swatch.empty { border: 1.5px dashed var(--axis); background: var(--surface); }
+.swatch.iso { width: 9px; height: 9px; border-radius: 50%; background: var(--surface); border: 1.5px solid var(--ink); }
+.swatch.hit { border: 3px solid var(--critical); background: var(--acuity-3); }
+.floor-tabs .btn { padding: 6px 10px; }

@@ -3,14 +3,18 @@
 CareTwin models a **300-bed acute-care hospital** as a property graph of wards, rooms, beds, staff,
 equipment, and the power, medical-gas, and network infrastructure they depend on. A discrete-event
 **patient-flow simulator** fills the beds: Synthea provides the patient mix, and length-of-stay and
-transfer patterns are fitted on MIMIC-IV. On top of that sit three tools:
+transfer patterns are fitted on MIMIC-IV. On top of that sit four tools:
 
+* **2D floor plan**: every floor drawn as wards with rooms on both sides of a corridor; beds shaded
+  by patient acuity, with any failing panel, valve, switch or device highlighting the beds it reaches.
 * **failure-impact analysis**: "what breaks if this oxygen valve / panel / ventilator fails?"
 * **what-if simulation**: arrival surges and bed outages, compared against a baseline run.
 * **an LLM assistant**: calls graph tools and returns answers with citations it has checked against the tool outputs.
 
 Stack: **React + TypeScript** (Vite, Recharts) · **FastAPI** · **Neo4j 5** · **PostgreSQL 16** ·
 SimPy · Docker · **Terraform (AWS ECS Fargate, RDS, ALB, EFS)** · **GitHub Actions**.
+
+![Floor plan with a failed critical-branch panel](docs/screenshots/floorplan.png)
 
 ![Failure impact](docs/screenshots/impact.png)
 
@@ -31,7 +35,7 @@ Neo4j, Postgres, the API and the load generator at the same time. Raw outputs ar
 | Failure-impact query latency | **17.9 ms p95** (p50 9.4 ms, p99 38.5 ms) over 1,092 warm, sequential queries on 364 targets |
 | Assistant accuracy (offline planner) | **50/50** on the main question set; **19/20** on a held-out paraphrase set; 100% of answers with verified citations |
 | Assistant accuracy (LLM, Groq `openai/gpt-oss-120b`, first run) | **34/50** (68%) main set, **14/20** (70%) held-out; 74% / 80% of answers with verified citations |
-| Tests | **200 tests** (195 pytest + 5 Vitest), **93% backend line coverage**; CI enforces ≥85% |
+| Tests | **211 tests** (204 pytest + 7 Vitest), **93% backend line coverage**; CI enforces ≥85% |
 | Load test, 100 users, 1–3 s think time | **37 ms p95**, 0 failures, 11.4k requests at 64 req/s (`/api/impact` p95 97 ms over HTTP) |
 | Load test, 100 users, no think time | 610 ms p95 at 308 req/s, 0 failures (saturation point of the single host) |
 | Infrastructure as code | Terraform for AWS ECS Fargate, RDS, ALB, EFS and ECR passes `terraform validate` and `fmt`; CI and manual deploy workflows included (not applied to a live AWS account) |
@@ -219,7 +223,7 @@ python eval/run_eval.py
 | Full MIMIC-IV (if credentialed) | `python scripts/calibrate_mimic.py --mimic-dir /path/to/mimic-iv/3.1 --label "MIMIC-IV v3.1"` | same file; do **not** commit the raw data |
 | Fit simulator to capacity | `cd backend && python -c "import json; from app.sim.engine import fit_rates, FIT_PATH; FIT_PATH.write_text(json.dumps(fit_rates(days=28, iterations=14, reps=4, damping=0.5), indent=2))"` | `data/calibration/sim_fit.json` |
 | Seed Neo4j + Postgres | `cd backend && python -m app.seed` | graph + census |
-| Tests + coverage | `cd backend && pytest --cov=app` · `cd frontend && npm test` | 195 + 5 tests |
+| Tests + coverage | `cd backend && pytest --cov=app` · `cd frontend && npm test` | 204 + 7 tests |
 | Assistant eval | `python eval/build_gold.py && python eval/run_eval.py && python eval/run_eval.py --questions eval/questions_heldout.jsonl` | `eval/results/*.json` |
 | Impact benchmark | `python scripts/bench_impact.py` | `docs/results/impact_benchmark.json` |
 | Simulator validation | `python eval/validate_sim.py` | `docs/results/sim_validation.json` |

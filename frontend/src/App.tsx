@@ -3,6 +3,7 @@ import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import { api, type SearchHit } from "./api";
 import { NodePanel } from "./components";
 import Assistant from "./pages/Assistant";
+import FloorPlanPage from "./pages/FloorPlan";
 import Impact from "./pages/Impact";
 import Overview from "./pages/Overview";
 import Simulation from "./pages/Simulation";
@@ -48,6 +49,7 @@ export default function App() {
         <div className="brand">CareTwin</div>
         <div className="brand-sub">Hospital digital twin</div>
         <NavLink to="/" end>Overview</NavLink>
+        <NavLink to="/floors">Floor plan</NavLink>
         <NavLink to="/impact">Failure impact</NavLink>
         <NavLink to="/simulation">Simulation</NavLink>
         <NavLink to="/assistant">Assistant</NavLink>
@@ -56,6 +58,7 @@ export default function App() {
       <main className="main">
         <Routes>
           <Route path="/" element={<Overview />} />
+          <Route path="/floors" element={<FloorPlanPage onInspect={open} />} />
           <Route path="/impact" element={<Impact onInspect={open} />} />
           <Route path="/simulation" element={<Simulation />} />
           <Route path="/assistant" element={<Assistant onInspect={open} />} />

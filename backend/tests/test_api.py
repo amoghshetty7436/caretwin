@@ -99,3 +99,23 @@ def test_assistant_endpoint(client, question, needle):
 
 def test_assistant_validation(client):
     assert client.post("/api/assistant/ask", json={"question": "x"}).status_code == 422
+
+
+def test_floors_list(client):
+    floors = client.get("/api/floors").json()
+    assert [f["level"] for f in floors] == list(range(8))
+    assert sum(f["beds"] for f in floors) == 300
+
+
+def test_floor_plan(client):
+    plan = client.get("/api/floors/2").json()
+    assert {w["code"] for w in plan["wards"]} == {"MICU", "SICU", "CVICU", "CCU"}
+    beds = [b for w in plan["wards"] for r in w["rooms"] for b in r["beds"]]
+    assert len(beds) == 58 and any(b["patient"] for b in beds)
+    assert any(n["id"] == "ZV-O2-MICU" for n in plan["infrastructure"]) and plan["circuits"] > 0
+
+
+def test_floor_plan_plant_and_missing(client):
+    plant = client.get("/api/floors/0").json()
+    assert plant["wards"] == [] and any(n["kind"] == "generator" for n in plant["infrastructure"])
+    assert client.get("/api/floors/42").status_code == 404

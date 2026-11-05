@@ -36,6 +36,14 @@ export type AskResponse = {
   answer: string; citations: string[]; provider: string; grounded: boolean; latency_ms: number;
   tool_calls: { tool: string; args: Record<string, unknown>; citations: string[] }[];
 };
+export type PlanBed = { id: string; name: string; isolation: boolean; inpatient: boolean;
+  patient: { id: string; acuity: number; age: number; reason: string } | null };
+export type PlanRoom = { id: string; kind: string; size: number; beds: PlanBed[] };
+export type PlanWard = { id: string; code: string; name: string; unit_type: string; inpatient: boolean;
+  rooms: PlanRoom[]; shared_assets: number };
+export type FloorPlan = { id: string; name: string; level: number; wards: PlanWard[];
+  infrastructure: { id: string; name: string; kind: string }[]; circuits: number };
+export type FloorSummary = { level: number; name: string; wards: string[]; beds: number; occupied: number };
 export type NodeInfo = Record<string, unknown> & { id: string; name: string; label: string; kind: string };
 export type Neighborhood = {
   nodes: { id: string; name: string; kind: string; label: string }[];
@@ -62,6 +70,8 @@ export const api = {
     req<SimResponse>("/api/simulations", { method: "POST", body: JSON.stringify(body) }),
   ask: (question: string) =>
     req<AskResponse>("/api/assistant/ask", { method: "POST", body: JSON.stringify({ question }) }),
+  floors: () => req<FloorSummary[]>("/api/floors"),
+  floorPlan: (level: number) => req<FloorPlan>(`/api/floors/${level}`),
   node: (id: string) => req<NodeInfo>(`/api/nodes/${encodeURIComponent(id)}`),
   neighborhood: (id: string) => req<Neighborhood>(`/api/nodes/${encodeURIComponent(id)}/neighborhood`),
 };

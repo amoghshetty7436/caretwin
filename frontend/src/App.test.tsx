@@ -54,3 +54,27 @@ describe("CareTwin UI", () => {
     expect(screen.getByText("ZV-O2-MICU")).toBeInTheDocument();
   });
 });
+
+describe("floor plan layout", () => {
+  it("places rooms on both sides of the corridor without overlap", async () => {
+    const { layoutFloor } = await import("./pages/FloorPlan");
+    const bed = (id: string) => ({ id, name: id, isolation: false, inpatient: true, patient: null });
+    const rooms = Array.from({ length: 6 }, (_, i) => ({ id: `R${i}`, kind: "patient_room", size: 1 + (i % 2), beds: [bed(`B${i}`)] }));
+    const out = layoutFloor([{ id: "WARD-X", code: "X", name: "Ward X", unit_type: "MED", inpatient: true, rooms, shared_assets: 0 }]);
+    const placed = out.wards[0].rooms;
+    expect(placed).toHaveLength(6);
+    expect(new Set(placed.map((r) => r.y)).size).toBe(2);
+    const top = placed.filter((r) => r.y === placed[0].y).sort((a, b) => a.x - b.x);
+    for (let i = 1; i < top.length; i++) expect(top[i].x).toBeGreaterThanOrEqual(top[i - 1].x + top[i - 1].w);
+    expect(out.width).toBeGreaterThanOrEqual(out.wards[0].w);
+  });
+
+  it("wraps wide floors onto a new row", async () => {
+    const { layoutFloor } = await import("./pages/FloorPlan");
+    const bed = { id: "b", name: "b", isolation: false, inpatient: true, patient: null };
+    const ward = (c: string) => ({ id: c, code: c, name: c, unit_type: "MED", inpatient: true, shared_assets: 0,
+      rooms: Array.from({ length: 30 }, (_, i) => ({ id: `${c}${i}`, kind: "patient_room", size: 2, beds: [bed, bed] })) });
+    const out = layoutFloor([ward("A"), ward("B")]);
+    expect(out.wards[1].y).toBeGreaterThan(out.wards[0].y);
+  });
+});

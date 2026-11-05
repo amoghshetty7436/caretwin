@@ -16,3 +16,4 @@ data/raw/
 loadtest/*.csv
 !loadtest/results/*.csv
 .DS_Store
+*.tsbuildinfo

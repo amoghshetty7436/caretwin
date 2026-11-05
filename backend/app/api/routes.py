@@ -39,6 +39,19 @@ def ward(code: str, d: Driver = Depends(driver)):
     return res
 
 
+@router.get("/floors")
+def floors(d: Driver = Depends(driver)):
+    return q.floors(d)
+
+
+@router.get("/floors/{level}")
+def floor_plan(level: int, d: Driver = Depends(driver)):
+    res = q.floor_plan(d, level)
+    if res is None:
+        raise HTTPException(404, f"floor {level} not found")
+    return res
+
+
 @router.get("/beds/availability")
 def beds(unit_type: str | None = None, d: Driver = Depends(driver)):
     return q.bed_availability(d, unit_type)

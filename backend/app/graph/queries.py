@@ -322,3 +322,47 @@ def get_patient(driver: Driver, patient_id: str) -> dict | None:
         RETURN p {.*} AS patient, b.id AS bed, r.id AS room, w.code AS ward, w.name AS ward_name,
                collect(a {.id, .kind, .status}) AS bedside_assets""", id=patient_id)
     return rows[0] if rows else None
+
+
+# ---------------------------------------------------------------------------
+# Floor plan
+# ---------------------------------------------------------------------------
+def floors(driver: Driver) -> list[dict]:
+    return _rows(driver, """
+        MATCH (f:Floor)
+        OPTIONAL MATCH (w:Ward)-[:ON_FLOOR]->(f)
+        WITH f, collect(w.code) AS wards
+        OPTIONAL MATCH (b:Bed {floor: f.level, inpatient: true})
+        OPTIONAL MATCH (p:Patient)-[:OCCUPIES]->(b)
+        RETURN f.level AS level, f.name AS name, wards, count(DISTINCT b) AS beds, count(DISTINCT p) AS occupied
+        ORDER BY level""")
+
+
+def floor_plan(driver: Driver, level: int) -> dict | None:
+    floor = _rows(driver, "MATCH (f:Floor {level: $l}) RETURN f.id AS id, f.name AS name, f.level AS level", l=level)
+    if not floor:
+        return None
+    wards = _rows(driver, """
+        MATCH (w:Ward)-[:ON_FLOOR]->(:Floor {level: $l})
+        OPTIONAL MATCH (r:Room)-[:IN_WARD]->(w)
+        OPTIONAL MATCH (b:Bed)-[:IN_ROOM]->(r)
+        OPTIONAL MATCH (p:Patient)-[:OCCUPIES]->(b)
+        WITH w, r, collect(CASE WHEN b IS NULL THEN null ELSE
+             {id: b.id, name: b.name, isolation: b.isolation, inpatient: b.inpatient,
+              patient: CASE WHEN p IS NULL THEN null ELSE
+                 {id: p.id, acuity: p.acuity, age: p.age, reason: p.reason} END} END) AS beds
+        ORDER BY r.id
+        WITH w, collect(CASE WHEN r IS NULL THEN null ELSE {id: r.id, kind: r.kind, size: r.size, beds: beds} END)
+             AS rooms
+        OPTIONAL MATCH (a:Asset)-[:STATIONED_IN]->(w)
+        RETURN w.id AS id, w.code AS code, w.name AS name, w.unit_type AS unit_type, w.inpatient AS inpatient,
+               rooms, count(a) AS shared_assets
+        ORDER BY w.code""", l=level)
+    infra = _rows(driver, """
+        MATCH (n:Infrastructure)-[:LOCATED_ON]->(:Floor {level: $l})
+        WHERE n.kind <> 'circuit'
+        RETURN n.id AS id, n.name AS name, n.kind AS kind ORDER BY n.kind, n.id""", l=level)
+    circuits = _rows(driver, """
+        MATCH (c:Infrastructure {kind: 'circuit'})-[:LOCATED_ON]->(:Floor {level: $l})
+        RETURN count(c) AS n""", l=level)[0]["n"]
+    return {**floor[0], "wards": wards, "infrastructure": infra, "circuits": circuits}
