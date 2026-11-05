@@ -1,224 +1,258 @@
 {
-  "arrivals_per_day": 36.97,
+  "arrivals_per_day": 38.45,
   "unit_weights": {
-    "ICU": 0.21957,
-    "STEPDOWN": 0.09327,
-    "CARD": 0.08111,
-    "MED": 0.23369,
-    "NEURO": 0.06207,
-    "ONC": 0.07771,
-    "SURG": 0.14908,
-    "TRANSPLANT": 0.03341,
-    "PSYCH": 0.05009
+    "ICU": 0.21604,
+    "STEPDOWN": 0.09032,
+    "CARD": 0.08174,
+    "MED": 0.23221,
+    "NEURO": 0.06699,
+    "ONC": 0.07259,
+    "SURG": 0.15439,
+    "TRANSPLANT": 0.03371,
+    "PSYCH": 0.052
   },
-  "icu_transfer_correction": 0.7762,
+  "icu_transfer_correction": 0.8533,
   "target_occupancy": 0.85,
-  "fit_days": 56.0,
-  "reps": 2,
+  "fit_days": 28,
+  "reps": 4,
   "history": [
     {
       "iteration": 0,
       "rate": 45.0,
-      "occupancy": 0.9461,
+      "occupancy": 0.9245,
       "by_unit": {
-        "ICU": 0.9878,
-        "STEPDOWN": 0.8823,
-        "CARD": 0.9602,
-        "MED": 0.9419,
-        "NEURO": 0.9476,
-        "ONC": 0.951,
-        "SURG": 0.965,
-        "TRANSPLANT": 0.9823,
-        "PSYCH": 0.7265
+        "ICU": 0.961,
+        "STEPDOWN": 0.8165,
+        "CARD": 0.9514,
+        "MED": 0.919,
+        "NEURO": 0.9256,
+        "ONC": 0.9354,
+        "SURG": 0.9605,
+        "TRANSPLANT": 0.9557,
+        "PSYCH": 0.7127
       },
       "icu_corr": 1.0
     },
     {
       "iteration": 1,
-      "rate": 42.2,
-      "occupancy": 0.9245,
+      "rate": 43.15,
+      "occupancy": 0.9167,
       "by_unit": {
-        "ICU": 0.9504,
-        "STEPDOWN": 0.8541,
-        "CARD": 0.9273,
-        "MED": 0.9067,
-        "NEURO": 0.9486,
-        "ONC": 0.9105,
-        "SURG": 0.9359,
-        "TRANSPLANT": 0.9885,
-        "PSYCH": 0.8951
+        "ICU": 0.9247,
+        "STEPDOWN": 0.9435,
+        "CARD": 0.9324,
+        "MED": 0.9153,
+        "NEURO": 0.9364,
+        "ONC": 0.8643,
+        "SURG": 0.9347,
+        "TRANSPLANT": 0.9758,
+        "PSYCH": 0.7203
       },
-      "icu_corr": 0.914
+      "icu_corr": 0.94
     },
     {
       "iteration": 2,
-      "rate": 40.12,
-      "occupancy": 0.9159,
+      "rate": 41.55,
+      "occupancy": 0.9045,
       "by_unit": {
-        "ICU": 0.9164,
-        "STEPDOWN": 0.8787,
-        "CARD": 0.9294,
-        "MED": 0.8978,
-        "NEURO": 0.9046,
-        "ONC": 0.9313,
-        "SURG": 0.9466,
-        "TRANSPLANT": 0.9382,
-        "PSYCH": 0.8831
+        "ICU": 0.8841,
+        "STEPDOWN": 0.7988,
+        "CARD": 0.9247,
+        "MED": 0.9153,
+        "NEURO": 0.9292,
+        "ONC": 0.9464,
+        "SURG": 0.9425,
+        "TRANSPLANT": 0.7799,
+        "PSYCH": 0.9304
       },
-      "icu_corr": 0.855
+      "icu_corr": 0.902
     },
     {
       "iteration": 3,
-      "rate": 38.37,
-      "occupancy": 0.8931,
+      "rate": 40.28,
+      "occupancy": 0.8717,
       "by_unit": {
-        "ICU": 0.9067,
-        "STEPDOWN": 0.8946,
-        "CARD": 0.9038,
-        "MED": 0.8809,
-        "NEURO": 0.9419,
-        "ONC": 0.9112,
-        "SURG": 0.914,
-        "TRANSPLANT": 0.9275,
-        "PSYCH": 0.603
+        "ICU": 0.8947,
+        "STEPDOWN": 0.8546,
+        "CARD": 0.867,
+        "MED": 0.8269,
+        "NEURO": 0.9149,
+        "ONC": 0.8852,
+        "SURG": 0.8867,
+        "TRANSPLANT": 0.8888,
+        "PSYCH": 0.8463
       },
-      "icu_corr": 0.817
+      "icu_corr": 0.884
     },
     {
       "iteration": 4,
-      "rate": 37.24,
-      "occupancy": 0.8452,
+      "rate": 39.77,
+      "occupancy": 0.8587,
       "by_unit": {
-        "ICU": 0.8164,
-        "STEPDOWN": 0.88,
-        "CARD": 0.8667,
-        "MED": 0.833,
-        "NEURO": 0.879,
-        "ONC": 0.8692,
-        "SURG": 0.8765,
-        "TRANSPLANT": 0.7158,
-        "PSYCH": 0.801
+        "ICU": 0.7933,
+        "STEPDOWN": 0.9038,
+        "CARD": 0.8878,
+        "MED": 0.8514,
+        "NEURO": 0.8743,
+        "ONC": 0.8705,
+        "SURG": 0.9072,
+        "TRANSPLANT": 0.8926,
+        "PSYCH": 0.749
       },
-      "icu_corr": 0.786
+      "icu_corr": 0.862
     },
     {
       "iteration": 5,
-      "rate": 37.37,
-      "occupancy": 0.8563,
+      "rate": 39.57,
+      "occupancy": 0.8844,
       "by_unit": {
-        "ICU": 0.9159,
-        "STEPDOWN": 0.8472,
-        "CARD": 0.84,
-        "MED": 0.8161,
-        "NEURO": 0.8781,
-        "ONC": 0.8445,
-        "SURG": 0.8206,
-        "TRANSPLANT": 0.9546,
-        "PSYCH": 0.8806
+        "ICU": 0.8617,
+        "STEPDOWN": 0.8452,
+        "CARD": 0.912,
+        "MED": 0.8705,
+        "NEURO": 0.8906,
+        "ONC": 0.897,
+        "SURG": 0.9141,
+        "TRANSPLANT": 0.9459,
+        "PSYCH": 0.85
       },
-      "icu_corr": 0.805
+      "icu_corr": 0.892
     },
     {
       "iteration": 6,
-      "rate": 37.21,
-      "occupancy": 0.8193,
+      "rate": 38.79,
+      "occupancy": 0.8159,
       "by_unit": {
-        "ICU": 0.8053,
-        "STEPDOWN": 0.7901,
-        "CARD": 0.8776,
-        "MED": 0.7201,
-        "NEURO": 0.8724,
-        "ONC": 0.8588,
-        "SURG": 0.8509,
-        "TRANSPLANT": 0.8908,
-        "PSYCH": 0.9388
+        "ICU": 0.8429,
+        "STEPDOWN": 0.8248,
+        "CARD": 0.8327,
+        "MED": 0.7738,
+        "NEURO": 0.8298,
+        "ONC": 0.824,
+        "SURG": 0.7675,
+        "TRANSPLANT": 0.9485,
+        "PSYCH": 0.8956
       },
-      "icu_corr": 0.77
+      "icu_corr": 0.886
     },
     {
       "iteration": 7,
-      "rate": 38.04,
-      "occupancy": 0.8556,
+      "rate": 39.6,
+      "occupancy": 0.8437,
       "by_unit": {
-        "ICU": 0.8346,
-        "STEPDOWN": 0.9449,
-        "CARD": 0.8726,
-        "MED": 0.8058,
-        "NEURO": 0.866,
-        "ONC": 0.7981,
-        "SURG": 0.8844,
-        "TRANSPLANT": 0.9249,
-        "PSYCH": 0.898
+        "ICU": 0.8375,
+        "STEPDOWN": 0.8884,
+        "CARD": 0.872,
+        "MED": 0.8417,
+        "NEURO": 0.8155,
+        "ONC": 0.8389,
+        "SURG": 0.8455,
+        "TRANSPLANT": 0.8296,
+        "PSYCH": 0.8007
       },
-      "icu_corr": 0.795
+      "icu_corr": 0.89
     },
     {
       "iteration": 8,
-      "rate": 37.89,
-      "occupancy": 0.8988,
+      "rate": 39.74,
+      "occupancy": 0.8549,
       "by_unit": {
-        "ICU": 0.8611,
-        "STEPDOWN": 0.8394,
-        "CARD": 0.9443,
-        "MED": 0.9148,
-        "NEURO": 0.9433,
-        "ONC": 0.9023,
-        "SURG": 0.9128,
-        "TRANSPLANT": 0.9334,
-        "PSYCH": 0.8155
+        "ICU": 0.8411,
+        "STEPDOWN": 0.8135,
+        "CARD": 0.8614,
+        "MED": 0.8484,
+        "NEURO": 0.8952,
+        "ONC": 0.8966,
+        "SURG": 0.8484,
+        "TRANSPLANT": 0.8971,
+        "PSYCH": 0.8484
       },
-      "icu_corr": 0.804
+      "icu_corr": 0.896
     },
     {
       "iteration": 9,
-      "rate": 36.64,
-      "occupancy": 0.8305,
+      "rate": 39.63,
+      "occupancy": 0.8842,
       "by_unit": {
-        "ICU": 0.8497,
-        "STEPDOWN": 0.7833,
-        "CARD": 0.843,
-        "MED": 0.8361,
-        "NEURO": 0.8408,
-        "ONC": 0.7604,
-        "SURG": 0.8279,
-        "TRANSPLANT": 0.8129,
-        "PSYCH": 0.9225
+        "ICU": 0.8646,
+        "STEPDOWN": 0.873,
+        "CARD": 0.893,
+        "MED": 0.9044,
+        "NEURO": 0.91,
+        "ONC": 0.8488,
+        "SURG": 0.8752,
+        "TRANSPLANT": 0.9305,
+        "PSYCH": 0.8859
       },
-      "icu_corr": 0.798
+      "icu_corr": 0.901
     },
     {
       "iteration": 10,
-      "rate": 37.15,
-      "occupancy": 0.8747,
+      "rate": 38.85,
+      "occupancy": 0.8603,
       "by_unit": {
-        "ICU": 0.8817,
-        "STEPDOWN": 0.8276,
-        "CARD": 0.8269,
-        "MED": 0.8875,
-        "NEURO": 0.9116,
-        "ONC": 0.8972,
-        "SURG": 0.8831,
-        "TRANSPLANT": 0.8026,
-        "PSYCH": 0.8952
+        "ICU": 0.8758,
+        "STEPDOWN": 0.8436,
+        "CARD": 0.814,
+        "MED": 0.8471,
+        "NEURO": 0.8968,
+        "ONC": 0.9118,
+        "SURG": 0.8731,
+        "TRANSPLANT": 0.7603,
+        "PSYCH": 0.8617
       },
-      "icu_corr": 0.798
+      "icu_corr": 0.893
     },
     {
       "iteration": 11,
-      "rate": 36.52,
-      "occupancy": 0.8328,
+      "rate": 38.62,
+      "occupancy": 0.8447,
       "by_unit": {
-        "ICU": 0.8579,
-        "STEPDOWN": 0.7588,
-        "CARD": 0.8096,
-        "MED": 0.8353,
-        "NEURO": 0.8313,
-        "ONC": 0.8109,
-        "SURG": 0.8528,
-        "TRANSPLANT": 0.8196,
-        "PSYCH": 0.8716
+        "ICU": 0.8539,
+        "STEPDOWN": 0.8868,
+        "CARD": 0.8111,
+        "MED": 0.8035,
+        "NEURO": 0.8743,
+        "ONC": 0.8773,
+        "SURG": 0.8437,
+        "TRANSPLANT": 0.8856,
+        "PSYCH": 0.8541
       },
-      "icu_corr": 0.78
+      "icu_corr": 0.88
+    },
+    {
+      "iteration": 12,
+      "rate": 38.74,
+      "occupancy": 0.8627,
+      "by_unit": {
+        "ICU": 0.8696,
+        "STEPDOWN": 0.7563,
+        "CARD": 0.8911,
+        "MED": 0.8265,
+        "NEURO": 0.915,
+        "ONC": 0.8502,
+        "SURG": 0.8947,
+        "TRANSPLANT": 0.9299,
+        "PSYCH": 0.879
+      },
+      "icu_corr": 0.878
+    },
+    {
+      "iteration": 13,
+      "rate": 38.46,
+      "occupancy": 0.8502,
+      "by_unit": {
+        "ICU": 0.8797,
+        "STEPDOWN": 0.8512,
+        "CARD": 0.8841,
+        "MED": 0.8165,
+        "NEURO": 0.8066,
+        "ONC": 0.8238,
+        "SURG": 0.8827,
+        "TRANSPLANT": 0.805,
+        "PSYCH": 0.8461
+      },
+      "icu_corr": 0.868
     }
   ]
 }

@@ -1,8 +1,8 @@
-{"_meta": {"census_patients": 271, "nodes": 4337}}
-{"id": "h-q01", "category": "capacity", "question": "Census check: total number of patients currently in inpatient beds?", "expected": ["271"], "any_of": [], "note": ""}
+{"_meta": {"census_patients": 267, "nodes": 4333}}
+{"id": "h-q01", "category": "capacity", "question": "Census check: total number of patients currently in inpatient beds?", "expected": ["267"], "any_of": [], "note": ""}
 {"id": "h-q02", "category": "capacity", "question": "MICU - how many empty beds?", "expected": ["4"], "any_of": [], "note": ""}
-{"id": "h-q05", "category": "capacity", "question": "Across all intensive care units, how many beds are unoccupied?", "expected": ["19"], "any_of": [], "note": ""}
-{"id": "h-q07", "category": "capacity", "question": "Which unit is the fullest at the moment?", "expected": [], "any_of": ["WARD-SDU", "WARD-MEDA", "WARD-NEURO", "WARD-MEDB", "WARD-SURG", "WARD-ORTHO"], "note": ""}
+{"id": "h-q05", "category": "capacity", "question": "Across all intensive care units, how many beds are unoccupied?", "expected": ["8"], "any_of": [], "note": ""}
+{"id": "h-q07", "category": "capacity", "question": "Which unit is the fullest at the moment?", "expected": [], "any_of": ["WARD-CVICU", "WARD-SDU", "WARD-NEURO", "WARD-TXP", "WARD-PSY"], "note": ""}
 {"id": "h-q11", "category": "assets", "question": "Do we have any spare vents? How many?", "expected": ["8"], "any_of": [], "note": ""}
 {"id": "h-q12", "category": "assets", "question": "Number of IV pumps in the medical intensive care unit?", "expected": ["60"], "any_of": [], "note": ""}
 {"id": "h-q16", "category": "assets", "question": "How many IV pumps are past due on PM?", "expected": ["52"], "any_of": [], "note": ""}
@@ -13,9 +13,9 @@
 {"id": "h-q26", "category": "staff", "question": "Number of doctors in the ED?", "expected": ["17"], "any_of": [], "note": ""}
 {"id": "h-q28", "category": "staff", "question": "Total pharmacist headcount?", "expected": ["40"], "any_of": [], "note": ""}
 {"id": "h-q31", "category": "impact", "question": "If the O2 zone valve for the medical ICU shuts off, who is affected?", "expected": ["20", "16"], "any_of": [], "note": "failed=['ZV-O2-MICU']: beds=20 patients=16"}
-{"id": "h-q34", "category": "impact", "question": "Utility outage plus generator 2 failure - impact?", "expected": ["264", "195"], "any_of": [], "note": "failed=['UTIL-1', 'GEN-2']: beds=264 patients=195"}
-{"id": "h-q37", "category": "impact", "question": "Critical branch transfer switch outage: what goes down?", "expected": ["180", "114"], "any_of": [], "note": "failed=['ATS-CR']: beds=180 patients=114"}
-{"id": "h-q39", "category": "impact", "question": "Oxygen reserve manifold failure - consequences?", "expected": ["344", "271"], "any_of": [], "note": "failed=['O2-MAN']: beds=344 patients=271"}
-{"id": "h-q41", "category": "impact", "question": "Floor 6 normal branch panel goes dark. Impact?", "expected": ["27", "27"], "any_of": [], "note": "failed=['PNL-6N']: beds=27 patients=27"}
-{"id": "h-q44", "category": "impact", "question": "What breaks if the life-safety ATS fails?", "expected": ["165", "133"], "any_of": [], "note": "failed=['ATS-LS']: beds=165 patients=133"}
+{"id": "h-q34", "category": "impact", "question": "Utility outage plus generator 2 failure - impact?", "expected": ["264", "198"], "any_of": [], "note": "failed=['UTIL-1', 'GEN-2']: beds=264 patients=198"}
+{"id": "h-q37", "category": "impact", "question": "Critical branch transfer switch outage: what goes down?", "expected": ["180", "125"], "any_of": [], "note": "failed=['ATS-CR']: beds=180 patients=125"}
+{"id": "h-q39", "category": "impact", "question": "Oxygen reserve manifold failure - consequences?", "expected": ["344", "267"], "any_of": [], "note": "failed=['O2-MAN']: beds=344 patients=267"}
+{"id": "h-q41", "category": "impact", "question": "Floor 6 normal branch panel goes dark. Impact?", "expected": ["27", "22"], "any_of": [], "note": "failed=['PNL-6N']: beds=27 patients=22"}
+{"id": "h-q44", "category": "impact", "question": "What breaks if the life-safety ATS fails?", "expected": ["165", "137"], "any_of": [], "note": "failed=['ATS-LS']: beds=165 patients=137"}
 {"id": "h-q46", "category": "dependency", "question": "Upstream dependencies of AST-VENTILATOR-0003?", "expected": ["CKT-MICU-03", "ZV-O2-MICU"], "any_of": [], "note": ""}

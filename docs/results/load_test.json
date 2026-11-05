@@ -1,0 +1,33 @@
+{
+  "users": 100,
+  "spawn_rate": 20,
+  "duration_s": 180,
+  "requests": 11441,
+  "failures": 0,
+  "rps": 63.8,
+  "p50_ms": 13.0,
+  "p95_ms": 37.0,
+  "p99_ms": 99.0,
+  "max_ms": 388.5604960000819,
+  "per_endpoint_p95_ms": {
+    "/api/assistant/ask": 31.0,
+    "/api/beds/availability": 13.0,
+    "/api/impact/[id]": 97.0,
+    "/api/nodes/[id]/neighborhood": 19.0,
+    "/api/search": 36.0,
+    "/api/summary": 23.0,
+    "/api/wards": 18.0,
+    "/api/wards/[code]": 30.0
+  },
+  "setup": "uvicorn 4 workers + Neo4j + Postgres + Locust all on one 4-vCPU sandbox VM; think time 1-3 s",
+  "stress_no_think_time": {
+    "users": 100,
+    "duration_s": 60,
+    "requests": 18292,
+    "failures": 0,
+    "rps": 308.2,
+    "p50_ms": 300.0,
+    "p95_ms": 610.0,
+    "p99_ms": 800.0
+  }
+}

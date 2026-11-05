@@ -78,7 +78,7 @@ class BedManager:
         """Place a long-waiting general-medicine patient in another general unit's bed."""
         if ev.triggered or unit not in GENERAL:
             return False
-        for other in sorted(GENERAL - {unit}, key=lambda u: -len(self.free.get(u, ()))):
+        for other in sorted(GENERAL - {unit}, key=lambda u: (-len(self.free.get(u, ())), u)):
             bed = self._take(other)
             if bed:
                 self.waiting[unit] = deque(w for w in self.waiting[unit] if w[0] is not ev)
@@ -120,7 +120,7 @@ class BedManager:
             self.free[u] = keep
 
     def unblock(self) -> None:
-        returning = [b for b in self.blocked_free]
+        returning = sorted(self.blocked_free)
         self.blocked.clear()
         self.blocked_free = set()
         for b in returning:

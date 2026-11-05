@@ -1,0 +1,40 @@
+{
+  "seeds": 10,
+  "days_per_seed": 28,
+  "occupancy": {
+    "target": 0.85,
+    "mean": 0.8375,
+    "sd": 0.0307,
+    "abs_error": 0.0125
+  },
+  "occupancy_by_unit_mean": {
+    "ICU": 0.8304,
+    "STEPDOWN": 0.8399,
+    "CARD": 0.8593,
+    "MED": 0.8194,
+    "NEURO": 0.8652,
+    "ONC": 0.7861,
+    "SURG": 0.8658,
+    "TRANSPLANT": 0.8045,
+    "PSYCH": 0.8663
+  },
+  "los_days": {
+    "simulated": {
+      "n": 7347,
+      "mean": 4.643,
+      "median": 3.199,
+      "p90": 10.724
+    },
+    "mimic_demo": {
+      "n": 275,
+      "mean": 6.876,
+      "median": 4.853,
+      "p90": 14.503
+    },
+    "ks_statistic": 0.1943,
+    "ks_pvalue": 0.0,
+    "ks_statistic_le_21d": 0.1763,
+    "ks_pvalue_le_21d": 0.0
+  },
+  "ed_boarding_p90_h_mean": 8.25
+}

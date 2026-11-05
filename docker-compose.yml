@@ -1,0 +1,48 @@
+# Local stack: docker compose up --build   ->  UI http://localhost:8080 , API http://localhost:8000/docs
+services:
+  neo4j:
+    image: neo4j:5.26-community
+    environment:
+      NEO4J_AUTH: neo4j/caretwin-dev
+      NEO4J_server_memory_heap_max__size: 1G
+      NEO4J_server_memory_pagecache_size: 512M
+    ports: ["7474:7474", "7687:7687"]
+    volumes: [neo4j-data:/data]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:7474 || exit 1"]
+      interval: 10s
+      retries: 20
+
+  postgres:
+    image: postgres:16-alpine
+    environment: { POSTGRES_USER: caretwin, POSTGRES_PASSWORD: caretwin, POSTGRES_DB: caretwin }
+    ports: ["5432:5432"]
+    volumes: [pg-data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U caretwin"]
+      interval: 5s
+      retries: 20
+
+  api:
+    build: { context: ., dockerfile: backend/Dockerfile }
+    environment:
+      CARETWIN_NEO4J_URI: bolt://neo4j:7687
+      CARETWIN_DATABASE_URL: postgresql+psycopg://caretwin:caretwin@postgres:5432/caretwin
+      CARETWIN_LLM_PROVIDER: ${CARETWIN_LLM_PROVIDER:-offline}
+      CARETWIN_LLM_BASE_URL: ${CARETWIN_LLM_BASE_URL:-https://api.groq.com/openai/v1}
+      CARETWIN_LLM_API_KEY: ${CARETWIN_LLM_API_KEY:-}
+      CARETWIN_LLM_MODEL: ${CARETWIN_LLM_MODEL:-llama-3.3-70b-versatile}
+      WEB_CONCURRENCY: 4
+    ports: ["8000:8000"]
+    depends_on:
+      neo4j: { condition: service_healthy }
+      postgres: { condition: service_healthy }
+
+  web:
+    build: { context: ., dockerfile: frontend/Dockerfile }
+    ports: ["8080:8080"]
+    depends_on: [api]
+
+volumes:
+  neo4j-data:
+  pg-data:

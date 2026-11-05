@@ -1,14 +1,14 @@
-{"_meta": {"census_patients": 271, "nodes": 4337}}
-{"id": "q01", "category": "capacity", "question": "How many inpatient beds are occupied right now across the hospital?", "expected": ["271"], "any_of": [], "note": ""}
+{"_meta": {"census_patients": 267, "nodes": 4333}}
+{"id": "q01", "category": "capacity", "question": "How many inpatient beds are occupied right now across the hospital?", "expected": ["267"], "any_of": [], "note": ""}
 {"id": "q02", "category": "capacity", "question": "How many free beds does the Medical ICU have?", "expected": ["4"], "any_of": [], "note": ""}
-{"id": "q03", "category": "capacity", "question": "Any open beds in Medicine A?", "expected": ["0"], "any_of": [], "note": ""}
-{"id": "q04", "category": "capacity", "question": "How many beds are available in Hematology/Oncology?", "expected": ["2"], "any_of": [], "note": ""}
-{"id": "q05", "category": "capacity", "question": "How many ICU beds are free in total?", "expected": ["19"], "any_of": [], "note": ""}
+{"id": "q03", "category": "capacity", "question": "Any open beds in Medicine A?", "expected": ["5"], "any_of": [], "note": ""}
+{"id": "q04", "category": "capacity", "question": "How many beds are available in Hematology/Oncology?", "expected": ["1"], "any_of": [], "note": ""}
+{"id": "q05", "category": "capacity", "question": "How many ICU beds are free in total?", "expected": ["8"], "any_of": [], "note": ""}
 {"id": "q06", "category": "capacity", "question": "What's the current occupancy of the stepdown unit \u2014 how many beds are taken?", "expected": ["24"], "any_of": [], "note": ""}
-{"id": "q07", "category": "capacity", "question": "Which ward has the highest occupancy?", "expected": [], "any_of": ["WARD-SDU", "WARD-MEDA", "WARD-NEURO", "WARD-MEDB", "WARD-SURG", "WARD-ORTHO"], "note": ""}
-{"id": "q08", "category": "capacity", "question": "Which inpatient ward has the lowest occupancy?", "expected": [], "any_of": ["WARD-SICU"], "note": ""}
+{"id": "q07", "category": "capacity", "question": "Which ward has the highest occupancy?", "expected": [], "any_of": ["WARD-CVICU", "WARD-SDU", "WARD-NEURO", "WARD-TXP", "WARD-PSY"], "note": ""}
+{"id": "q08", "category": "capacity", "question": "Which inpatient ward has the lowest occupancy?", "expected": [], "any_of": ["WARD-MICU", "WARD-SURG"], "note": ""}
 {"id": "q09", "category": "capacity", "question": "How many free beds are there in the Neurology ward?", "expected": ["0"], "any_of": [], "note": ""}
-{"id": "q10", "category": "capacity", "question": "What is the overall hospital occupancy? Give the number of free inpatient beds.", "expected": ["29"], "any_of": [], "note": ""}
+{"id": "q10", "category": "capacity", "question": "What is the overall hospital occupancy? Give the number of free inpatient beds.", "expected": ["33"], "any_of": [], "note": ""}
 {"id": "q11", "category": "assets", "question": "How many ventilators are available hospital-wide?", "expected": ["8"], "any_of": [], "note": ""}
 {"id": "q12", "category": "assets", "question": "How many infusion pumps does the MICU have?", "expected": ["60"], "any_of": [], "note": ""}
 {"id": "q13", "category": "assets", "question": "How many defibrillators are currently in maintenance?", "expected": ["0"], "any_of": [], "note": ""}
@@ -30,22 +30,22 @@
 {"id": "q29", "category": "staff", "question": "How many ED nurses have TNCC?", "expected": ["31"], "any_of": [], "note": ""}
 {"id": "q30", "category": "staff", "question": "How many CVICU nurses are CRRT certified?", "expected": ["9"], "any_of": [], "note": ""}
 {"id": "q31", "category": "impact", "question": "What happens if the MICU oxygen zone valve fails?", "expected": ["20", "16"], "any_of": [], "note": "failed=['ZV-O2-MICU']: beds=20 patients=16"}
-{"id": "q32", "category": "impact", "question": "If the floor 2 critical branch panel trips, how many patients are affected?", "expected": ["58", "39"], "any_of": [], "note": "failed=['PNL-2CR']: beds=58 patients=39"}
+{"id": "q32", "category": "impact", "question": "If the floor 2 critical branch panel trips, how many patients are affected?", "expected": ["58", "50"], "any_of": [], "note": "failed=['PNL-2CR']: beds=58 patients=50"}
 {"id": "q33", "category": "impact", "question": "What if generator 2 goes down?", "expected": [], "any_of": ["no downstream impact", "no impact", "not affected", "0 beds", "redundant"], "note": "failed=['GEN-2']: no impact"}
-{"id": "q34", "category": "impact", "question": "What happens if we lose utility power and generator 2 also fails?", "expected": ["264", "195"], "any_of": [], "note": "failed=['UTIL-1', 'GEN-2']: beds=264 patients=195"}
-{"id": "q35", "category": "impact", "question": "Impact of circuit 1 in the SICU failing?", "expected": ["16", "9"], "any_of": [], "note": "failed=['CKT-SICU-01']: beds=16 patients=9"}
-{"id": "q36", "category": "impact", "question": "What is affected if the floor 3 network switch A goes offline?", "expected": ["52", "50"], "any_of": [], "note": "failed=['SW-3A']: beds=52 patients=50"}
-{"id": "q37", "category": "impact", "question": "What happens if the critical branch transfer switch fails?", "expected": ["180", "114"], "any_of": [], "note": "failed=['ATS-CR']: beds=180 patients=114"}
+{"id": "q34", "category": "impact", "question": "What happens if we lose utility power and generator 2 also fails?", "expected": ["264", "198"], "any_of": [], "note": "failed=['UTIL-1', 'GEN-2']: beds=264 patients=198"}
+{"id": "q35", "category": "impact", "question": "Impact of circuit 1 in the SICU failing?", "expected": ["16", "13"], "any_of": [], "note": "failed=['CKT-SICU-01']: beds=16 patients=13"}
+{"id": "q36", "category": "impact", "question": "What is affected if the floor 3 network switch A goes offline?", "expected": ["52", "49"], "any_of": [], "note": "failed=['SW-3A']: beds=52 patients=49"}
+{"id": "q37", "category": "impact", "question": "What happens if the critical branch transfer switch fails?", "expected": ["180", "125"], "any_of": [], "note": "failed=['ATS-CR']: beds=180 patients=125"}
 {"id": "q38", "category": "impact", "question": "What if ventilator #3 breaks?", "expected": ["1", "0"], "any_of": [], "note": "failed=['AST-VENTILATOR-0003']: beds=1 patients=0"}
-{"id": "q39", "category": "impact", "question": "What happens if the oxygen manifold fails?", "expected": ["344", "271"], "any_of": [], "note": "failed=['O2-MAN']: beds=344 patients=271"}
-{"id": "q40", "category": "impact", "question": "What is the impact of a UPS 3 failure?", "expected": ["176", "114"], "any_of": [], "note": "failed=['UPS-3']: beds=176 patients=114"}
-{"id": "q41", "category": "impact", "question": "If the floor 6 normal panel loses power, what is impacted?", "expected": ["27", "27"], "any_of": [], "note": "failed=['PNL-6N']: beds=27 patients=27"}
-{"id": "q42", "category": "impact", "question": "What happens if core switch 1 fails?", "expected": ["176", "114"], "any_of": [], "note": "failed=['CORE-1']: beds=176 patients=114"}
-{"id": "q43", "category": "impact", "question": "What if the medical air compressor plant fails?", "expected": ["66", "39"], "any_of": [], "note": "failed=['AIR-COMP']: beds=66 patients=39"}
-{"id": "q44", "category": "impact", "question": "Impact if the life safety transfer switch fails?", "expected": ["165", "133"], "any_of": [], "note": "failed=['ATS-LS']: beds=165 patients=133"}
+{"id": "q39", "category": "impact", "question": "What happens if the oxygen manifold fails?", "expected": ["344", "267"], "any_of": [], "note": "failed=['O2-MAN']: beds=344 patients=267"}
+{"id": "q40", "category": "impact", "question": "What is the impact of a UPS 3 failure?", "expected": ["176", "125"], "any_of": [], "note": "failed=['UPS-3']: beds=176 patients=125"}
+{"id": "q41", "category": "impact", "question": "If the floor 6 normal panel loses power, what is impacted?", "expected": ["27", "22"], "any_of": [], "note": "failed=['PNL-6N']: beds=27 patients=22"}
+{"id": "q42", "category": "impact", "question": "What happens if core switch 1 fails?", "expected": ["176", "125"], "any_of": [], "note": "failed=['CORE-1']: beds=176 patients=125"}
+{"id": "q43", "category": "impact", "question": "What if the medical air compressor plant fails?", "expected": ["66", "50"], "any_of": [], "note": "failed=['AIR-COMP']: beds=66 patients=50"}
+{"id": "q44", "category": "impact", "question": "Impact if the life safety transfer switch fails?", "expected": ["165", "137"], "any_of": [], "note": "failed=['ATS-LS']: beds=165 patients=137"}
 {"id": "q45", "category": "impact", "question": "What happens if CKT-CARD-03 trips?", "expected": ["4", "4"], "any_of": [], "note": "failed=['CKT-CARD-03']: beds=4 patients=4"}
 {"id": "q46", "category": "dependency", "question": "What does AST-VENTILATOR-0003 depend on?", "expected": ["CKT-MICU-03", "ZV-O2-MICU"], "any_of": [], "note": ""}
 {"id": "q47", "category": "dependency", "question": "What powers the floor 4 critical panel? What is it fed by?", "expected": ["ATS-CR"], "any_of": [], "note": ""}
 {"id": "q48", "category": "dependency", "question": "What does bed BED-MICU-201A depend on?", "expected": ["CKT-MICU-01", "ZV-O2-MICU"], "any_of": [], "note": ""}
-{"id": "q49", "category": "patient", "question": "Where is patient PT-42-00207 right now?", "expected": ["BED-ORTHO-607B", "WARD-ORTHO"], "any_of": [], "note": ""}
-{"id": "q50", "category": "patient", "question": "Where is patient PT-42-00218 right now?", "expected": ["BED-ORTHO-612A", "WARD-ORTHO"], "any_of": [], "note": ""}
+{"id": "q49", "category": "patient", "question": "Where is patient PT-42-00119 right now?", "expected": ["BED-SURG-601A", "WARD-SURG"], "any_of": [], "note": ""}
+{"id": "q50", "category": "patient", "question": "Where is patient PT-42-00155 right now?", "expected": ["BED-CARD-304A", "WARD-CARD"], "any_of": [], "note": ""}

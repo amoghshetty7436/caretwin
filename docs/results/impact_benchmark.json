@@ -1,0 +1,25 @@
+{
+  "queries": 1092,
+  "targets": 364,
+  "infrastructure_targets": 164,
+  "asset_targets": 200,
+  "rounds": 3,
+  "p50_ms": 9.38,
+  "p95_ms": 17.87,
+  "p99_ms": 38.52,
+  "mean_ms": 10.66,
+  "max_ms": 82.07,
+  "p95_by_target": {
+    "infrastructure": 25.29,
+    "asset": 13.55
+  },
+  "graph": {
+    "nodes": 4333,
+    "relationships": 11420,
+    "by_label": null,
+    "inpatient_beds": 300,
+    "occupied_beds": 267,
+    "occupancy": 0.89
+  },
+  "note": "single client, sequential, warm cache; Neo4j 5.26 community in Docker on the same 4-vCPU host"
+}

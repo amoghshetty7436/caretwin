@@ -1,0 +1,56 @@
+name: Deploy to AWS ECS
+
+# Manual only. Costs money while running (ALB + Fargate + RDS + EFS): see README "Deploying".
+# Prerequisites: run `terraform apply` once locally (creates the OIDC deploy role), then set
+#   repo secret  AWS_DEPLOY_ROLE_ARN = output github_deploy_role_arn
+#   repo variable AWS_REGION (default us-east-1)
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Terraform environment name
+        default: dev
+        required: true
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION || 'us-east-1' }}
+      TAG: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+      - id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+      - name: Build and push images
+        run: |
+          REG=${{ steps.ecr.outputs.registry }}
+          docker build -f backend/Dockerfile -t $REG/caretwin-api:$TAG .
+          docker build -f frontend/Dockerfile -t $REG/caretwin-web:$TAG .
+          docker push $REG/caretwin-api:$TAG
+          docker push $REG/caretwin-web:$TAG
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.8
+      - name: Terraform apply
+        working-directory: infra/terraform
+        run: |
+          terraform init -input=false
+          terraform apply -auto-approve -input=false \
+            -var environment=${{ inputs.environment }} \
+            -var api_image_tag=$TAG -var web_image_tag=$TAG
+      - name: Smoke test
+        working-directory: infra/terraform
+        run: |
+          URL=$(terraform output -raw url)
+          for i in $(seq 1 30); do curl -fsS "$URL/health" && exit 0; sleep 20; done
+          exit 1
