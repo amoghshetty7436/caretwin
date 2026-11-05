@@ -20,6 +20,7 @@ from scipy import stats
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
 
+from app.config import get_settings  # noqa: E402
 from app.sim.engine import SimParams, Simulation  # noqa: E402
 
 
@@ -29,8 +30,10 @@ def main() -> None:
     ap.add_argument("--days", type=float, default=28)
     ap.add_argument("--out", type=Path, default=ROOT / "docs/results/sim_validation.json")
     args = ap.parse_args()
-    cal = json.loads((ROOT / "data/calibration/mimic_demo_calibration.json").read_text())
-    mimic_los = np.array(cal["validation"]["los_days_sample"])
+    cal = json.loads(Path(get_settings().calibration_path).read_text())  # CARETWIN_CALIBRATION_PATH
+    v = cal["validation"]
+    # aggregate-only calibrations (full MIMIC-IV) carry percentiles instead of per-admission values
+    mimic_los = np.array(v.get("los_days_sample") or v["los_days_quantiles"])
 
     occ, los_all, boarding_p90, by_unit = [], [], [], {}
     for seed in range(args.seeds):

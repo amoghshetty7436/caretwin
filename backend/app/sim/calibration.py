@@ -102,7 +102,10 @@ def build_segments(transfers: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def calibrate(mimic_dir: Path, source_label: str = "MIMIC-IV Clinical Database Demo v2.2") -> dict:
+def calibrate(mimic_dir: Path, source_label: str = "MIMIC-IV Clinical Database Demo v2.2",
+              aggregate_only: bool = False) -> dict:
+    """``aggregate_only`` drops per-admission values and small transition counts so the output
+    can be shared under the credentialed MIMIC-IV data use agreement."""
     hosp = mimic_dir / "hosp"
     adm = pd.read_csv(hosp / "admissions.csv.gz", parse_dates=["admittime", "dischtime", "edregtime", "edouttime"])
     tr = pd.read_csv(hosp / "transfers.csv.gz", parse_dates=["intime", "outtime"])
@@ -154,7 +157,7 @@ def calibrate(mimic_dir: Path, source_label: str = "MIMIC-IV Clinical Database D
     hour_profile = arrivals.dt.hour.value_counts(normalize=True).reindex(range(24), fill_value=0.0)
     hour_profile = (hour_profile * 0.9 + 0.1 / 24)  # light smoothing for a 100-patient sample
 
-    return {
+    out = {
         "source": source_label,
         "n_admissions": int(adm.hadm_id.nunique()),
         "n_patients": int(adm.subject_id.nunique()),
@@ -172,9 +175,16 @@ def calibrate(mimic_dir: Path, source_label: str = "MIMIC-IV Clinical Database D
                                   "p90": float(adm.los_days.quantile(0.9)), "n": int(adm.los_days.notna().sum())},
             "segments_per_admission": float(segs.groupby("hadm_id").size().mean()),
             "icu_share": float(segs.groupby("hadm_id").unit.apply(lambda u: (u == "ICU").any()).mean()),
-            "los_days_sample": [round(float(x), 4) for x in adm.los_days.dropna().sort_values()],
+            "los_days_quantiles": [round(float(adm.los_days.quantile(q / 100)), 4) for q in range(1, 100)],
+            **({} if aggregate_only else
+               {"los_days_sample": [round(float(x), 4) for x in adm.los_days.dropna().sort_values()]}),
         },
+        "aggregate_only": aggregate_only,
     }
+    if aggregate_only:  # no cells under 10 (common small-cell suppression rule)
+        out["transition_counts"] = {s: {t: c for t, c in row.items() if c >= 10}
+                                    for s, row in out["transition_counts"].items()}
+    return out
 
 
 def save(cal: dict, path: Path) -> None:
