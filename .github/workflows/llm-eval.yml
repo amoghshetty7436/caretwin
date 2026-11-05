@@ -1,0 +1,70 @@
+name: LLM assistant eval
+
+# Manual. Scores an OpenAI-compatible LLM (default: Groq free tier) on the same
+# 50 questions + 20 held-out paraphrases as the offline planner, then commits the
+# JSON results to eval/results/. Requires repo secret LLM_API_KEY.
+on:
+  workflow_dispatch:
+    inputs:
+      model:
+        description: Model id
+        default: llama-3.3-70b-versatile
+        required: true
+      base_url:
+        description: OpenAI-compatible base URL
+        default: https://api.groq.com/openai/v1
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    services:
+      neo4j:
+        image: neo4j:5.26-community
+        env:
+          NEO4J_AUTH: neo4j/caretwin-dev
+        ports: ["7687:7687", "7474:7474"]
+        options: >-
+          --health-cmd "wget -qO- http://localhost:7474 || exit 1"
+          --health-interval 10s --health-timeout 5s --health-retries 20
+    defaults:
+      run:
+        working-directory: backend
+    env:
+      CARETWIN_LLM_PROVIDER: openai_compat
+      CARETWIN_LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+      CARETWIN_LLM_MODEL: ${{ inputs.model }}
+      CARETWIN_LLM_BASE_URL: ${{ inputs.base_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: backend/requirements*.txt
+      - run: pip install -r requirements.txt
+      - name: Seed twin (Postgres is optional for the eval)
+        run: python -m app.seed > /dev/null
+      - name: Score LLM
+        run: |
+          python ../eval/run_eval.py || (python ../eval/build_gold.py && python ../eval/run_eval.py)
+          python ../eval/run_eval.py --questions ../eval/questions_heldout.jsonl \
+            --out "../eval/results/llm_heldout.json"
+          python - <<'EOF' >> "$GITHUB_STEP_SUMMARY"
+          import json, glob
+          for f in sorted(glob.glob("../eval/results/*.json")):
+              r = json.load(open(f))
+              print(f"- `{f.split('/')[-1]}` {r['provider']}: **{r['correct']}/{r['total']}** "
+                    f"({r['accuracy']:.0%}), grounded {r['grounded_rate']:.0%}, p95 {r['p95_latency_ms']} ms, {r['by_category']}")
+          EOF
+      - name: Commit results
+        working-directory: .
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add eval/results
+          git diff --cached --quiet || git commit -m "eval: LLM assistant results (${{ inputs.model }})"
+          git push
