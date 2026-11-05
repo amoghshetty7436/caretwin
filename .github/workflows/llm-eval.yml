@@ -48,11 +48,14 @@ jobs:
       - name: Choose model
         run: |
           python - <<'EOF'
-          import json, os, urllib.request
+          import os, sys, httpx
           base, want = os.environ["CARETWIN_LLM_BASE_URL"].rstrip("/"), "${{ inputs.model }}"
-          req = urllib.request.Request(f"{base}/models",
-                                       headers={"Authorization": f"Bearer {os.environ['CARETWIN_LLM_API_KEY']}"})
-          ids = sorted(m["id"] for m in json.load(urllib.request.urlopen(req))["data"])
+          r = httpx.get(f"{base}/models", headers={"Authorization": f"Bearer {os.environ['CARETWIN_LLM_API_KEY']}",
+                                                   "User-Agent": "caretwin-eval/1.0"}, timeout=30)
+          if r.status_code != 200:
+              sys.exit(f"listing models failed: HTTP {r.status_code}: {r.text[:300]}  "
+                       "(401/403 usually means the LLM_API_KEY secret is missing, revoked or mistyped)")
+          ids = sorted(m["id"] for m in r.json()["data"])
           print("available models:", ", ".join(ids))
           prefer = ["openai/gpt-oss-120b", "llama-3.3-70b-versatile", "moonshotai/kimi-k2-instruct-0905",
                     "moonshotai/kimi-k2-instruct", "qwen/qwen3-32b", "meta-llama/llama-4-maverick-17b-128e-instruct",

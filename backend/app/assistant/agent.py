@@ -64,7 +64,8 @@ def _verify(answer: str, tool_calls: list[dict]) -> tuple[list[str], bool]:
 class OpenAICompatAgent:
     def __init__(self, settings: Settings, client: httpx.Client | None = None):
         self.s = settings
-        self.client = client or httpx.Client(timeout=settings.llm_timeout_s)
+        self.client = client or httpx.Client(timeout=settings.llm_timeout_s,
+                                             headers={"User-Agent": "caretwin/1.0"})
 
     def ask(self, driver: Driver, question: str) -> AssistantResult:
         t0 = time.perf_counter()
