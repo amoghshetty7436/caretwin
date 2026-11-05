@@ -153,3 +153,14 @@ def test_openai_compat_surfaces_provider_error(seeded):
     agent = OpenAICompatAgent(Settings(llm_api_key="k"), client=httpx.Client(transport=transport))
     with pytest.raises(httpx.HTTPStatusError, match="model not found"):
         agent.ask(seeded["driver"], "hello there")
+
+
+@pytest.mark.parametrize("raw,expected", [
+    ("free beds 【WARD-CCU】", "free beds [WARD-CCU]"),
+    ("circuit [CKT‑MICU‑03]", "circuit [CKT-MICU-03]"),
+    ("both [AST-CT-SCANNER-0001, AST-CT-SCANNER-0002].", "both [AST-CT-SCANNER-0001] [AST-CT-SCANNER-0002]."),
+    ("plain [HOSP] text (not an id)", "plain [HOSP] text (not an id)"),
+])
+def test_normalize_citations(raw, expected):
+    from app.assistant.agent import normalize_citations
+    assert normalize_citations(raw) == expected

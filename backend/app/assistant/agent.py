@@ -31,7 +31,9 @@ SYSTEM_PROMPT = """You are CareTwin, an operations assistant for a 300-bed hospi
 Answer ONLY from tool results; never invent counts, ids or names. Resolve names to ids with
 search_entities before calling other tools. Cite every fact with the node id in square brackets,
 e.g. "MICU has 3 free beds [WARD-MICU]". Ward codes: ED, PACU, OR, IMG, MICU, SICU, CVICU, CCU, SDU,
-CARD, MEDA, NEURO, MEDB, ONC, SURG, ORTHO, TXP, PSY. Be concise: 1-4 sentences, numbers first."""
+CARD, MEDA, NEURO, MEDB, ONC, SURG, ORTHO, TXP, PSY. Be concise: 1-4 sentences, numbers first.
+Copy ids exactly with plain ASCII hyphens, one id per bracket: [WARD-MICU] [BED-MICU-201A].
+Counts come from a tool's "total" field, never from the length of a truncated item list."""
 
 
 @dataclass
@@ -45,6 +47,17 @@ class AssistantResult:
 
     def to_dict(self) -> dict:
         return self.__dict__.copy()
+
+
+_DASHES = dict.fromkeys(map(ord, "\u2010\u2011\u2012\u2013\u2014\u2212\ufe63\uff0d"), "-")
+_MULTI_CITE = re.compile(r"\[((?:[A-Z][A-Z0-9-]*-[A-Z0-9-]+|HOSP)(?:\s*[,;]\s*(?:[A-Z][A-Z0-9-]*-[A-Z0-9-]+|HOSP))+)\]")
+
+
+def normalize_citations(text: str) -> str:
+    """LLMs often emit Unicode hyphens (CKT\u2011MICU\u201101), CJK brackets or several ids in one
+    bracket. Normalise to ``[ID] [ID]`` so citations can be verified and rendered as links."""
+    text = text.translate(_DASHES).replace("\u3010", "[").replace("\u3011", "]")
+    return _MULTI_CITE.sub(lambda m: " ".join(f"[{i.strip()}]" for i in re.split(r"[,;]", m.group(1))), text)
 
 
 def _verify(answer: str, tool_calls: list[dict]) -> tuple[list[str], bool]:
@@ -97,6 +110,7 @@ class OpenAICompatAgent:
                                                        default=str)[:6000]})
         else:
             answer = answer or "I could not finish within the tool-call budget."
+        answer = normalize_citations(answer)
         cites, grounded = _verify(answer, calls)
         return AssistantResult(answer=answer, citations=cites, tool_calls=_slim(calls), provider=self.s.llm_model,
                                grounded=grounded, latency_ms=(time.perf_counter() - t0) * 1000)
@@ -108,7 +122,9 @@ class OpenAICompatAgent:
         for attempt in range(retries):
             resp = self.client.post(f"{self.s.llm_base_url.rstrip('/')}/chat/completions",
                                     headers={"Authorization": f"Bearer {self.s.llm_api_key}"}, json=body)
-            if resp.status_code not in (429, 500, 502, 503):
+            # Groq returns 400 "Parsing failed" when a sampled tool call is malformed; resampling usually fixes it
+            transient_400 = resp.status_code == 400 and "failed_generation" in resp.text
+            if resp.status_code not in (429, 500, 502, 503) and not transient_400:
                 return resp
             try:
                 wait = float(resp.headers.get("retry-after", 0))

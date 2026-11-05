@@ -30,14 +30,20 @@ Neo4j, Postgres, the API and the load generator at the same time. Raw outputs ar
 | Flow calibration | MIMIC-IV Clinical Database Demo v2.2: 100 patients, 275 admissions, 687 unit-stay segments |
 | Failure-impact query latency | **17.9 ms p95** (p50 9.4 ms, p99 38.5 ms) over 1,092 warm, sequential queries on 364 targets |
 | Assistant accuracy (offline planner) | **50/50** on the main question set; **19/20** on a held-out paraphrase set; 100% of answers with verified citations |
+| Assistant accuracy (LLM, Groq `openai/gpt-oss-120b`, first run) | **34/50** (68%) main set, **14/20** (70%) held-out; 74% / 80% of answers with verified citations |
 | Tests | **200 tests** (195 pytest + 5 Vitest), **93% backend line coverage**; CI enforces ≥85% |
 | Load test, 100 users, 1–3 s think time | **37 ms p95**, 0 failures, 11.4k requests at 64 req/s (`/api/impact` p95 97 ms over HTTP) |
 | Load test, 100 users, no think time | 610 ms p95 at 308 req/s, 0 failures (saturation point of the single host) |
 | Infrastructure as code | Terraform for AWS ECS Fargate, RDS, ALB, EFS and ECR passes `terraform validate` and `fmt`; CI and manual deploy workflows included (not applied to a live AWS account) |
 
-The LLM assistant path (Groq / Gemini / Ollama) is implemented and unit-tested; the accuracy
-above is for the built-in offline planner. Run `python eval/run_eval.py` with an API key set to
-score an LLM on the same questions.
+The LLM run uses the same questions, gold answers and grader as the offline planner
+(`.github/workflows/llm-eval.yml`, raw output in `eval/results/groq_gpt_oss_120b_*run1.json`).
+About a dozen of its misses were formatting: the model wrote ids with Unicode hyphens
+(`CKT‑MICU‑03`), CJK brackets or several ids in one bracket, so correct answers failed citation
+checks. The rest were real errors: wrong counts (e.g. 50 instead of 58 affected patients), two
+large failure scenarios that ran out of tool-call rounds, and one provider parsing error. After
+that run the assistant now normalises citation formatting, allows 8 tool rounds and retries
+malformed generations; re-run the workflow to score the updated version.
 
 **Simulation fidelity** ([`docs/results/sim_validation.json`](docs/results/sim_validation.json), 10 seeds × 28 days):
 
