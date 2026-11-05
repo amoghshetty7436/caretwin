@@ -1,0 +1,376 @@
+{
+  "provider": "offline",
+  "correct": 19,
+  "total": 20,
+  "accuracy": 0.95,
+  "by_category": {
+    "capacity": "4/4",
+    "assets": "5/5",
+    "staff": "4/4",
+    "impact": "5/6",
+    "dependency": "1/1"
+  },
+  "grounded_rate": 1.0,
+  "p95_latency_ms": 118.5,
+  "results": [
+    {
+      "id": "h-q01",
+      "category": "capacity",
+      "question": "Census check: total number of patients currently in inpatient beds?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "The hospital has 300 inpatient beds with 271 occupied (90%) and 29 free [HOSP]. The graph holds 4337 nodes and 11424 relationships.",
+      "citations": [
+        "HOSP"
+      ],
+      "latency_ms": 16.4
+    },
+    {
+      "id": "h-q02",
+      "category": "capacity",
+      "question": "MICU - how many empty beds?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "Medical ICU [WARD-MICU] has 20 beds: 16 occupied and 4 free (80% occupancy). Free beds include BED-MICU-203A, BED-MICU-205A, BED-MICU-213A, BED-MICU-215A.",
+      "citations": [
+        "WARD-MICU"
+      ],
+      "latency_ms": 21.3
+    },
+    {
+      "id": "h-q05",
+      "category": "capacity",
+      "question": "Across all intensive care units, how many beds are unoccupied?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "ICU has 19 free of 58 beds (67% occupied): CCU 4 [WARD-CCU], CVICU 4 [WARD-CVICU], MICU 4 [WARD-MICU], SICU 7 [WARD-SICU].",
+      "citations": [
+        "WARD-CCU",
+        "WARD-CVICU",
+        "WARD-MICU",
+        "WARD-SICU"
+      ],
+      "latency_ms": 5.1
+    },
+    {
+      "id": "h-q07",
+      "category": "capacity",
+      "question": "Which unit is the fullest at the moment?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "General Surgery [WARD-SURG] has the fullest occupancy: 30/30 beds occupied (100%), 0 free.",
+      "citations": [
+        "WARD-SURG"
+      ],
+      "latency_ms": 17.7
+    },
+    {
+      "id": "h-q11",
+      "category": "assets",
+      "question": "Do we have any spare vents? How many?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "There are 8 available ventilators hospital-wide. Examples: [AST-VENTILATOR-0003], [AST-VENTILATOR-0007], [AST-VENTILATOR-0011].",
+      "citations": [
+        "AST-VENTILATOR-0003",
+        "AST-VENTILATOR-0007",
+        "AST-VENTILATOR-0011"
+      ],
+      "latency_ms": 12.1
+    },
+    {
+      "id": "h-q12",
+      "category": "assets",
+      "question": "Number of IV pumps in the medical intensive care unit?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "There are 60 infusion pumps in MICU [WARD-MICU]. Examples: [AST-INFUSION-PUMP-0053], [AST-INFUSION-PUMP-0054], [AST-INFUSION-PUMP-0055].",
+      "citations": [
+        "WARD-MICU",
+        "AST-INFUSION-PUMP-0053",
+        "AST-INFUSION-PUMP-0054",
+        "AST-INFUSION-PUMP-0055"
+      ],
+      "latency_ms": 13.3
+    },
+    {
+      "id": "h-q16",
+      "category": "assets",
+      "question": "How many IV pumps are past due on PM?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "There are 52 infusion pumps with overdue preventive maintenance hospital-wide. Examples: [AST-INFUSION-PUMP-0001], [AST-INFUSION-PUMP-0002], [AST-INFUSION-PUMP-0005].",
+      "citations": [
+        "AST-INFUSION-PUMP-0001",
+        "AST-INFUSION-PUMP-0002",
+        "AST-INFUSION-PUMP-0005"
+      ],
+      "latency_ms": 13.6
+    },
+    {
+      "id": "h-q18",
+      "category": "assets",
+      "question": "Wheelchair count for the ER?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "There are 4 wheelchairs in ED [WARD-ED]. Examples: [AST-WHEELCHAIR-0001], [AST-WHEELCHAIR-0002], [AST-WHEELCHAIR-0003].",
+      "citations": [
+        "WARD-ED",
+        "AST-WHEELCHAIR-0001",
+        "AST-WHEELCHAIR-0002",
+        "AST-WHEELCHAIR-0003"
+      ],
+      "latency_ms": 8.8
+    },
+    {
+      "id": "h-q20",
+      "category": "assets",
+      "question": "Telemetry units on the card ward - how many?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "There are 28 telemetry transmitters in CARD [WARD-CARD]. Examples: [AST-TELEMETRY-TRANSMITTER-0001], [AST-TELEMETRY-TRANSMITTER-0002], [AST-TELEMETRY-TRANSMITTER-0003].",
+      "citations": [
+        "WARD-CARD",
+        "AST-TELEMETRY-TRANSMITTER-0001",
+        "AST-TELEMETRY-TRANSMITTER-0002",
+        "AST-TELEMETRY-TRANSMITTER-0003"
+      ],
+      "latency_ms": 8.9
+    },
+    {
+      "id": "h-q21",
+      "category": "staff",
+      "question": "RNs currently on shift in MICU?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "There are 16 on-duty registered nurses in MICU [WARD-MICU]. For example: Owen Silva [STF-00235], Liam Hughes [STF-00237], Quinn Walker [STF-00239].",
+      "citations": [
+        "WARD-MICU",
+        "STF-00235",
+        "STF-00237",
+        "STF-00239"
+      ],
+      "latency_ms": 10.1
+    },
+    {
+      "id": "h-q23",
+      "category": "staff",
+      "question": "How many RTs are vent-certified?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "There are 25 respiratory therapists with VENT hospital-wide. For example: Rosa Petrov [STF-00095], Rosa Sato [STF-00096], Hana Rossi [STF-00293].",
+      "citations": [
+        "STF-00095",
+        "STF-00096",
+        "STF-00293"
+      ],
+      "latency_ms": 9.9
+    },
+    {
+      "id": "h-q26",
+      "category": "staff",
+      "question": "Number of doctors in the ED?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "There are 17 physicians in ED [WARD-ED]. For example: Rosa Kim [STF-00054], Ben Lopez [STF-00055], Kenji Rossi [STF-00056].",
+      "citations": [
+        "WARD-ED",
+        "STF-00054",
+        "STF-00055",
+        "STF-00056"
+      ],
+      "latency_ms": 24.9
+    },
+    {
+      "id": "h-q28",
+      "category": "staff",
+      "question": "Total pharmacist headcount?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "There are 40 pharmacists hospital-wide. For example: Yara Haddad [STF-01047], Isla Ahmed [STF-01048], Emma O'Brien [STF-01049].",
+      "citations": [
+        "STF-01047",
+        "STF-01048",
+        "STF-01049"
+      ],
+      "latency_ms": 13.2
+    },
+    {
+      "id": "h-q31",
+      "category": "impact",
+      "question": "If the O2 zone valve for the medical ICU shuts off, who is affected?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "Failure of Medical ICU O2 Zone Valve [ZV-O2-MICU] is CRITICAL severity: it affects 20 beds, 14 assets and 16 current patients across 1 ward(s): MICU [WARD-MICU] (16 patients). 15 high-acuity patients, e.g. [PT-42-00718], [PT-42-01071], [PT-42-01079]. Top replacement need: 14 ventilator(s) for MICU; 5 available unaffected, nearest [AST-VENTILATOR-0018], [AST-VENTILATOR-0019].",
+      "citations": [
+        "ZV-O2-MICU",
+        "WARD-MICU",
+        "PT-42-00718",
+        "PT-42-01071",
+        "PT-42-01079",
+        "AST-VENTILATOR-0018",
+        "AST-VENTILATOR-0019"
+      ],
+      "latency_ms": 27.3
+    },
+    {
+      "id": "h-q34",
+      "category": "impact",
+      "question": "Utility outage plus generator 2 failure - impact?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "Failure of Emergency Generator 2 (1.5 MW diesel) [GEN-2], Utility Feed A (13.8 kV) [UTIL-1] is CRITICAL severity: it affects 264 beds, 1238 assets and 195 current patients across 18 ward(s): CARD [WARD-CARD] (26 patients), SDU [WARD-SDU] (24 patients), NEURO [WARD-NEURO] (19 patients), MICU [WARD-MICU] (16 patients), MEDA [WARD-MEDA] (16 patients). 15 high-acuity patients, e.g. [PT-42-00718], [PT-42-00908], [PT-42-01029]. 23 devices lose network/central monitoring but keep working at the bedside. 820 devices switch to battery; the shortest runway is 30 minutes. Top replacement need: 2 crash cart(s) for ED; 1 available unaffected, nearest [AST-CRASH-CART-0016].",
+      "citations": [
+        "GEN-2",
+        "UTIL-1",
+        "WARD-CARD",
+        "WARD-SDU",
+        "WARD-NEURO",
+        "WARD-MICU",
+        "WARD-MEDA",
+        "PT-42-00718",
+        "PT-42-00908",
+        "PT-42-01029",
+        "AST-CRASH-CART-0016"
+      ],
+      "latency_ms": 118.5
+    },
+    {
+      "id": "h-q37",
+      "category": "impact",
+      "question": "Critical branch transfer switch outage: what goes down?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "Failure of Automatic Transfer Switch - Critical Branch [ATS-CR] is CRITICAL severity: it affects 180 beds, 860 assets and 114 current patients across 12 ward(s): CARD [WARD-CARD] (26 patients), SDU [WARD-SDU] (24 patients), MICU [WARD-MICU] (16 patients), NEURO [WARD-NEURO] (14 patients), TXP [WARD-TXP] (11 patients). 15 high-acuity patients, e.g. [PT-42-00718], [PT-42-00908], [PT-42-01029]. 55 devices lose network/central monitoring but keep working at the bedside. 591 devices switch to battery; the shortest runway is 30 minutes. Top replacement need: 2 crash cart(s) for ED; 3 available unaffected, nearest [AST-CRASH-CART-0016], [AST-CRASH-CART-0022].",
+      "citations": [
+        "ATS-CR",
+        "WARD-CARD",
+        "WARD-SDU",
+        "WARD-MICU",
+        "WARD-NEURO",
+        "WARD-TXP",
+        "PT-42-00718",
+        "PT-42-00908",
+        "PT-42-01029",
+        "AST-CRASH-CART-0016",
+        "AST-CRASH-CART-0022"
+      ],
+      "latency_ms": 67.0
+    },
+    {
+      "id": "h-q39",
+      "category": "impact",
+      "question": "Oxygen reserve manifold failure - consequences?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "Failure of Oxygen Reserve Manifold [O2-MAN] is CRITICAL severity: it affects 344 beds, 40 assets and 271 current patients across 17 ward(s): MEDA [WARD-MEDA] (32 patients), MEDB [WARD-MEDB] (32 patients), SURG [WARD-SURG] (30 patients), CARD [WARD-CARD] (26 patients), NEURO [WARD-NEURO] (24 patients). 15 high-acuity patients, e.g. [PT-42-00718], [PT-42-00908], [PT-42-01029].",
+      "citations": [
+        "O2-MAN",
+        "WARD-MEDA",
+        "WARD-MEDB",
+        "WARD-SURG",
+        "WARD-CARD",
+        "WARD-NEURO",
+        "PT-42-00718",
+        "PT-42-00908",
+        "PT-42-01029"
+      ],
+      "latency_ms": 45.8
+    },
+    {
+      "id": "h-q41",
+      "category": "impact",
+      "question": "Floor 6 normal branch panel goes dark. Impact?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "Failure of Floor 6 Normal Branch Panel [PNL-6N] is HIGH severity: it affects 27 beds, 116 assets and 27 current patients across 2 ward(s): SURG [WARD-SURG] (15 patients), ORTHO [WARD-ORTHO] (12 patients). 1 high-acuity patients, e.g. [PT-42-00799]. 60 devices switch to battery; the shortest runway is 60 minutes. Top replacement need: 1 crash cart(s) for ORTHO; 4 available unaffected, nearest [AST-CRASH-CART-0005], [AST-CRASH-CART-0009].",
+      "citations": [
+        "PNL-6N",
+        "WARD-SURG",
+        "WARD-ORTHO",
+        "PT-42-00799",
+        "AST-CRASH-CART-0005",
+        "AST-CRASH-CART-0009"
+      ],
+      "latency_ms": 25.6
+    },
+    {
+      "id": "h-q44",
+      "category": "impact",
+      "question": "What breaks if the life-safety ATS fails?",
+      "correct": false,
+      "missing": [
+        "165",
+        "133"
+      ],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "The hospital has 300 inpatient beds with 271 occupied (90%) and 29 free [HOSP]. The graph holds 4337 nodes and 11424 relationships.",
+      "citations": [
+        "HOSP"
+      ],
+      "latency_ms": 119.0
+    },
+    {
+      "id": "h-q46",
+      "category": "dependency",
+      "question": "Upstream dependencies of AST-VENTILATOR-0003?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "AST-VENTILATOR-0003 [AST-VENTILATOR-0003] depends directly on 3 node(s) and on 12 upstream node(s) in total: Medical ICU Circuit 03 [CKT-MICU-03], Medical ICU Medical Air Zone Valve [ZV-AIR-MICU], Medical ICU O2 Zone Valve [ZV-O2-MICU], Medical Air Compressor Plant [AIR-COMP], Oxygen Reserve Manifold [O2-MAN], Floor 2 Critical Branch Panel [PNL-2CR], Automatic Transfer Switch - Critical Branch [ATS-CR], Automatic Transfer Switch - Life Safety [ATS-LS]. Redundant (either-or) sources: [GEN-1], [GEN-2], [UTIL-1].",
+      "citations": [
+        "AST-VENTILATOR-0003",
+        "CKT-MICU-03",
+        "ZV-AIR-MICU",
+        "ZV-O2-MICU",
+        "AIR-COMP",
+        "O2-MAN",
+        "PNL-2CR",
+        "ATS-CR",
+        "ATS-LS",
+        "GEN-1",
+        "GEN-2",
+        "UTIL-1"
+      ],
+      "latency_ms": 6.3
+    }
+  ]
+}

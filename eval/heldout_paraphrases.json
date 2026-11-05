@@ -1,0 +1,23 @@
+{
+  "_note": "Written before any tuning on them and never used for development. Gold is copied from the base question.",
+  "q01": "Census check: total number of patients currently in inpatient beds?",
+  "q02": "MICU - how many empty beds?",
+  "q05": "Across all intensive care units, how many beds are unoccupied?",
+  "q07": "Which unit is the fullest at the moment?",
+  "q11": "Do we have any spare vents? How many?",
+  "q12": "Number of IV pumps in the medical intensive care unit?",
+  "q16": "How many IV pumps are past due on PM?",
+  "q18": "Wheelchair count for the ER?",
+  "q20": "Telemetry units on the card ward - how many?",
+  "q21": "RNs currently on shift in MICU?",
+  "q23": "How many RTs are vent-certified?",
+  "q26": "Number of doctors in the ED?",
+  "q28": "Total pharmacist headcount?",
+  "q31": "If the O2 zone valve for the medical ICU shuts off, who is affected?",
+  "q34": "Utility outage plus generator 2 failure - impact?",
+  "q37": "Critical branch transfer switch outage: what goes down?",
+  "q39": "Oxygen reserve manifold failure - consequences?",
+  "q41": "Floor 6 normal branch panel goes dark. Impact?",
+  "q44": "What breaks if the life-safety ATS fails?",
+  "q46": "Upstream dependencies of AST-VENTILATOR-0003?"
+}

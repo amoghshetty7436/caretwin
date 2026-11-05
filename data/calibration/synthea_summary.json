@@ -1,0 +1,36 @@
+{
+  "synthea_patient_records": 11509,
+  "synthea_alive": 10000,
+  "inpatient_admissions": 9629,
+  "emergency_visits": 15306,
+  "unit_mix": {
+    "ONC": 0.4184,
+    "SURG": 0.2016,
+    "CARD": 0.1245,
+    "ICU": 0.0782,
+    "PSYCH": 0.0748,
+    "MED": 0.0594,
+    "TRANSPLANT": 0.0417,
+    "NEURO": 0.0014
+  },
+  "pathway_mix": {
+    "direct": 0.7065,
+    "elective": 0.1862,
+    "ed": 0.1073
+  },
+  "age": {
+    "count": 9629.0,
+    "mean": 53.58,
+    "std": 17.87,
+    "min": 0.0,
+    "25%": 41.0,
+    "50%": 56.0,
+    "75%": 66.0,
+    "max": 107.0
+  },
+  "postgres": {
+    "patients": 11509,
+    "encounters": 24935,
+    "ingested_at": "2026-11-05T03:09:43.540725"
+  }
+}

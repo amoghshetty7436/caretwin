@@ -1,0 +1,11 @@
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+orjson==3.10.12
+neo4j==5.27.0
+sqlalchemy==2.0.36
+psycopg[binary]==3.2.3
+pydantic-settings==2.7.0
+simpy==4.1.1
+numpy>=2.1
+pandas>=2.2
+httpx==0.28.1
