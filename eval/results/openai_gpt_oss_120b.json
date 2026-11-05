@@ -1,0 +1,801 @@
+{
+  "provider": "openai/gpt-oss-120b",
+  "correct": 34,
+  "total": 50,
+  "accuracy": 0.68,
+  "by_category": {
+    "capacity": "9/10",
+    "assets": "7/10",
+    "staff": "10/10",
+    "impact": "8/15",
+    "dependency": "0/3",
+    "patient": "0/2"
+  },
+  "grounded_rate": 0.74,
+  "p95_latency_ms": 29511.7,
+  "results": [
+    {
+      "id": "q01",
+      "category": "capacity",
+      "question": "How many inpatient beds are occupied right now across the hospital?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "267 inpatient beds are currently occupied hospital\u2011wide [HOSP].",
+      "citations": [
+        "HOSP"
+      ],
+      "latency_ms": 1065.2
+    },
+    {
+      "id": "q02",
+      "category": "capacity",
+      "question": "How many free beds does the Medical ICU have?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "Medical ICU (MICU) has 4 free beds [WARD-MICU].",
+      "citations": [
+        "WARD-MICU"
+      ],
+      "latency_ms": 1034.3
+    },
+    {
+      "id": "q03",
+      "category": "capacity",
+      "question": "Any open beds in Medicine A?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "5 open beds in Medicine\u202fA\u202f[WARD-MEDA]",
+      "citations": [
+        "WARD-MEDA"
+      ],
+      "latency_ms": 1224.3
+    },
+    {
+      "id": "q04",
+      "category": "capacity",
+      "question": "How many beds are available in Hematology/Oncology?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "1 bed is currently available in the Hematology/Oncology ward [WARD-ONC].",
+      "citations": [
+        "WARD-ONC"
+      ],
+      "latency_ms": 20091.8
+    },
+    {
+      "id": "q05",
+      "category": "capacity",
+      "question": "How many ICU beds are free in total?",
+      "correct": false,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": false,
+      "answer": "8 ICU beds are currently free across all ICU wards (CCU\u202f1, CVICU\u202f0, MICU\u202f4, SICU\u202f3)\u3010WARD-CCU\u3011\u3010WARD-CVICU\u3011\u3010WARD-MICU\u3011\u3010WARD-SICU\u3011.",
+      "citations": [],
+      "latency_ms": 15876.7
+    },
+    {
+      "id": "q06",
+      "category": "capacity",
+      "question": "What's the current occupancy of the stepdown unit \u2014 how many beds are taken?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "The stepdown unit (SDU) has 24 beds, all of which are occupied\u202f\u2014\u202f24 beds taken [WARD-SDU].",
+      "citations": [
+        "WARD-SDU"
+      ],
+      "latency_ms": 13892.3
+    },
+    {
+      "id": "q07",
+      "category": "capacity",
+      "question": "Which ward has the highest occupancy?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "CVICU, SDU, NEURO, PSY and TXP each have 100\u202f% occupancy, the highest among all wards [WARD-CVICU][WARD-SDU][WARD-NEURO][WARD-PSY][WARD-TXP].",
+      "citations": [
+        "WARD-CVICU",
+        "WARD-SDU",
+        "WARD-NEURO",
+        "WARD-PSY",
+        "WARD-TXP"
+      ],
+      "latency_ms": 21218.3
+    },
+    {
+      "id": "q08",
+      "category": "capacity",
+      "question": "Which inpatient ward has the lowest occupancy?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "The lowest inpatient occupancy is 80\u202f% in both the Medical ICU (MICU) and the General Surgery ward (SURG) [WARD-MICU][WARD-SURG].",
+      "citations": [
+        "WARD-MICU",
+        "WARD-SURG"
+      ],
+      "latency_ms": 24466.6
+    },
+    {
+      "id": "q09",
+      "category": "capacity",
+      "question": "How many free beds are there in the Neurology ward?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "0 free beds in the Neurology ward [WARD-NEURO].",
+      "citations": [
+        "WARD-NEURO"
+      ],
+      "latency_ms": 8086.6
+    },
+    {
+      "id": "q10",
+      "category": "capacity",
+      "question": "What is the overall hospital occupancy? Give the number of free inpatient beds.",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "The hospital has 300 inpatient beds, 267 are occupied, giving an overall occupancy of 89\u202f% and 33 free inpatient beds [HOSP].",
+      "citations": [
+        "HOSP"
+      ],
+      "latency_ms": 8908.7
+    },
+    {
+      "id": "q11",
+      "category": "assets",
+      "question": "How many ventilators are available hospital-wide?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "8 ventilators are currently available hospital\u2011wide [HOSP][AST-VENTILATOR-0003][AST-VENTILATOR-0007][AST-VENTILATOR-0011][AST-VENTILATOR-0018][AST-VENTILATOR-0019][AST-VENTILATOR-0024][AST-VENTILATOR-0035][AST-VENTILATOR-0038]",
+      "citations": [
+        "HOSP",
+        "AST-VENTILATOR-0003",
+        "AST-VENTILATOR-0007",
+        "AST-VENTILATOR-0011",
+        "AST-VENTILATOR-0018",
+        "AST-VENTILATOR-0019",
+        "AST-VENTILATOR-0024",
+        "AST-VENTILATOR-0035",
+        "AST-VENTILATOR-0038"
+      ],
+      "latency_ms": 49241.5
+    },
+    {
+      "id": "q12",
+      "category": "assets",
+      "question": "How many infusion pumps does the MICU have?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "MICU has 60 infusion pumps\u202f[WARD-MICU].",
+      "citations": [
+        "WARD-MICU"
+      ],
+      "latency_ms": 23961.6
+    },
+    {
+      "id": "q13",
+      "category": "assets",
+      "question": "How many defibrillators are currently in maintenance?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "0 defibrillators are currently in maintenance [HOSP].",
+      "citations": [
+        "HOSP"
+      ],
+      "latency_ms": 15667.0
+    },
+    {
+      "id": "q14",
+      "category": "assets",
+      "question": "Count the dialysis machines in the Surgical ICU.",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "2 dialysis machines are in the Surgical ICU [WARD-SICU].",
+      "citations": [
+        "WARD-SICU"
+      ],
+      "latency_ms": 14784.4
+    },
+    {
+      "id": "q15",
+      "category": "assets",
+      "question": "How many CT scanners do we have?",
+      "correct": false,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": false,
+      "answer": "We have 2 CT scanners in the hospital\u202f[AST-CT-SCANNER-0001, AST-CT-SCANNER-0002].",
+      "citations": [],
+      "latency_ms": 21795.1
+    },
+    {
+      "id": "q16",
+      "category": "assets",
+      "question": "How many infusion pumps are overdue for preventive maintenance?",
+      "correct": false,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": false,
+      "answer": "52 infusion pumps are overdue for preventive maintenance\u3010HOSP\u3011\u3010AST-INFUSION-PUMP-0001\u3011.",
+      "citations": [],
+      "latency_ms": 25412.2
+    },
+    {
+      "id": "q17",
+      "category": "assets",
+      "question": "How many available patient monitors are on floor 2?",
+      "correct": false,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": false,
+      "answer": "5 patient monitors are available on floor\u202f2 [FL2].",
+      "citations": [],
+      "latency_ms": 3848.2
+    },
+    {
+      "id": "q18",
+      "category": "assets",
+      "question": "How many wheelchairs are stationed in the emergency department?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "4 wheelchairs are stationed in the Emergency Department [WARD-ED].",
+      "citations": [
+        "WARD-ED"
+      ],
+      "latency_ms": 1145.2
+    },
+    {
+      "id": "q19",
+      "category": "assets",
+      "question": "How many crash carts does Medicine B have?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "Medicine B has 3 crash carts [WARD-MEDB][AST-CRASH-CART-0020][AST-CRASH-CART-0021][AST-CRASH-CART-0022]",
+      "citations": [
+        "WARD-MEDB",
+        "AST-CRASH-CART-0020",
+        "AST-CRASH-CART-0021",
+        "AST-CRASH-CART-0022"
+      ],
+      "latency_ms": 5983.3
+    },
+    {
+      "id": "q20",
+      "category": "assets",
+      "question": "How many telemetry transmitters are on the cardiology ward?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "28 telemetry transmitters are assigned to the Cardiology ward [WARD-CARD][AST-TELEMETRY-TRANSMITTER-0001].",
+      "citations": [
+        "WARD-CARD",
+        "AST-TELEMETRY-TRANSMITTER-0001"
+      ],
+      "latency_ms": 21626.1
+    },
+    {
+      "id": "q21",
+      "category": "staff",
+      "question": "How many registered nurses are on duty in the MICU right now?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "16 registered nurses are on duty in the MICU [WARD-MICU].",
+      "citations": [
+        "WARD-MICU"
+      ],
+      "latency_ms": 18440.5
+    },
+    {
+      "id": "q22",
+      "category": "staff",
+      "question": "How many CCRN-certified nurses work in the Surgical ICU?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "20 CCRN\u2011certified nurses work in the Surgical ICU (SICU) [WARD-SICU].",
+      "citations": [
+        "WARD-SICU"
+      ],
+      "latency_ms": 29511.7
+    },
+    {
+      "id": "q23",
+      "category": "staff",
+      "question": "How many respiratory therapists hold the VENT competency hospital-wide?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "25 respiratory therapists hold the VENT competency hospital\u2011wide [HOSP].",
+      "citations": [
+        "HOSP"
+      ],
+      "latency_ms": 24149.5
+    },
+    {
+      "id": "q24",
+      "category": "staff",
+      "question": "How many ACLS-certified nurses are on duty in the ED?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "12 ACLS\u2011certified nurses are on duty in the ED [WARD-ED][STF-00009][STF-00017][STF-00019][STF-00022][STF-00026][STF-00031][STF-00033][STF-00040][STF-00044][STF-00046][STF-00049][STF-00050]",
+      "citations": [
+        "WARD-ED",
+        "STF-00009",
+        "STF-00017",
+        "STF-00019",
+        "STF-00022",
+        "STF-00026",
+        "STF-00031",
+        "STF-00033",
+        "STF-00040",
+        "STF-00044",
+        "STF-00046",
+        "STF-00049",
+        "STF-00050"
+      ],
+      "latency_ms": 12061.8
+    },
+    {
+      "id": "q25",
+      "category": "staff",
+      "question": "How many night shift nurses are assigned to Medicine A?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "10 night\u2011shift registered nurses are assigned to Medicine\u202fA [WARD-MEDA][STF-00617][STF-00619][STF-00621][STF-00625][STF-00629][STF-00634][STF-00635][STF-00638][STF-00640][STF-00642]",
+      "citations": [
+        "WARD-MEDA",
+        "STF-00617",
+        "STF-00619",
+        "STF-00621",
+        "STF-00625",
+        "STF-00629",
+        "STF-00634",
+        "STF-00635",
+        "STF-00638",
+        "STF-00640",
+        "STF-00642"
+      ],
+      "latency_ms": 6148.4
+    },
+    {
+      "id": "q26",
+      "category": "staff",
+      "question": "How many physicians work in the emergency department?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "17 physicians work in the Emergency Department [WARD-ED].",
+      "citations": [
+        "WARD-ED"
+      ],
+      "latency_ms": 20154.2
+    },
+    {
+      "id": "q27",
+      "category": "staff",
+      "question": "How many charge nurses does oncology have?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "Oncology has 3 charge nurses [WARD-ONC].",
+      "citations": [
+        "WARD-ONC"
+      ],
+      "latency_ms": 4911.8
+    },
+    {
+      "id": "q28",
+      "category": "staff",
+      "question": "How many pharmacists does the hospital employ?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "The hospital employs 40 pharmacists\u202f[HOSP].",
+      "citations": [
+        "HOSP"
+      ],
+      "latency_ms": 13101.5
+    },
+    {
+      "id": "q29",
+      "category": "staff",
+      "question": "How many ED nurses have TNCC?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "31 ED registered nurses hold a TNCC certification [WARD-ED][STF-00001].",
+      "citations": [
+        "WARD-ED",
+        "STF-00001"
+      ],
+      "latency_ms": 15201.4
+    },
+    {
+      "id": "q30",
+      "category": "staff",
+      "question": "How many CVICU nurses are CRRT certified?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "9 CVICU nurses are CRRT certified [WARD-CVICU].",
+      "citations": [
+        "WARD-CVICU"
+      ],
+      "latency_ms": 12809.6
+    },
+    {
+      "id": "q31",
+      "category": "impact",
+      "question": "What happens if the MICU oxygen zone valve fails?",
+      "correct": false,
+      "missing": [
+        "20",
+        "16"
+      ],
+      "any_of_ok": true,
+      "grounded": false,
+      "answer": "ERROR: 400 from LLM provider: {\"error\":{\"message\":\"Parsing failed. The model generated output that could not be parsed. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"output_parse_failed\",\"failed_generation\":\"We need to find node id for MICU oxygen zone valve. Search ",
+      "citations": [],
+      "latency_ms": 0.0
+    },
+    {
+      "id": "q32",
+      "category": "impact",
+      "question": "If the floor 2 critical branch panel trips, how many patients are affected?",
+      "correct": false,
+      "missing": [
+        "58"
+      ],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "50 patients would be affected by a trip of the Floor\u202f2 Critical Branch Panel [PNL-2CR].",
+      "citations": [
+        "PNL-2CR"
+      ],
+      "latency_ms": 30702.5
+    },
+    {
+      "id": "q33",
+      "category": "impact",
+      "question": "What if generator 2 goes down?",
+      "correct": false,
+      "missing": [],
+      "any_of_ok": false,
+      "grounded": false,
+      "answer": "If Emergency Generator\u202f2 fails, the impact is minimal: no beds, patients, wards, or critical assets lose power, and no backup equipment is needed. The only affected node is the generator itself, with no downstream consequences reported.",
+      "citations": [],
+      "latency_ms": 15992.0
+    },
+    {
+      "id": "q34",
+      "category": "impact",
+      "question": "What happens if we lose utility power and generator 2 also fails?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "Losing the main utility feed and Emergency Generator\u202f2 creates a **critical power outage** that disables 100 infrastructure nodes and 1,238 assets, puts 264 inpatient beds in 18 wards offline, and affects 198 patients (including 16 high\u2011acuity ICU patients)\u202f[UTIL-1][GEN-2]. All equipment switches to battery, leaving 820 assets on battery with only **30\u202fminutes** of runway before depletion\u202f[UTIL-1][GEN-2]. Power\u2011only systems are hit hardest (1,215 devices), while network remains partially functional (23 nodes)\u202f[UTIL-1][GEN-2]. Immediate substitute crash carts are required in several wards (e.g., MICU, ED, SDU) but only one spare cart is available hospital\u2011wide\u202f[WARD-MICU][WARD-ED].",
+      "citations": [
+        "UTIL-1",
+        "GEN-2",
+        "WARD-MICU",
+        "WARD-ED"
+      ],
+      "latency_ms": 34857.6
+    },
+    {
+      "id": "q35",
+      "category": "impact",
+      "question": "Impact of circuit 1 in the SICU failing?",
+      "correct": false,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": false,
+      "answer": "Circuit\u202f1 failure in the SICU would affect 16 beds and 13 ICU patients (all high\u2011acuity) and knock out 47 pieces of equipment, with 27 of those running on battery for at least 60\u202fminutes [CKT\u2011SICU\u201101]. The ward would lose power to 35 devices and network to 12, and would need substitutes such as one dialysis machine, one crash cart and one wheelchair, which are available in nearby units [CKT\u2011SICU\u201101].",
+      "citations": [],
+      "latency_ms": 25208.8
+    },
+    {
+      "id": "q36",
+      "category": "impact",
+      "question": "What is affected if the floor 3 network switch A goes offline?",
+      "correct": false,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": false,
+      "answer": "The failure disables network for two wards: CARD (28 beds, 25 patients) and SDU (24\u202fbeds, 24\u202fpatients) affecting 52 inpatient beds and 49 patients, plus 54 network\u2011dependent assets in those wards\u202f[WARD\u2011CARD][WARD\u2011SDU][PT\u201142\u201100003][PT\u201142\u201100462][PT\u201142\u201100908][PT\u201142\u201100920][PT\u201142\u201101011][PT\u201142\u201101013][PT\u201142\u201101030][PT\u201142\u201101111][PT\u201142\u201101186][PT\u201142\u201101191].",
+      "citations": [],
+      "latency_ms": 11623.3
+    },
+    {
+      "id": "q37",
+      "category": "impact",
+      "question": "What happens if the critical branch transfer switch fails?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "180 beds (125 patients) in 12 wards lose power, affecting 860 assets of which 591 run on battery and leaving only 30\u202fmin of runway before depletion [ATS-CR]. All medical\u2011gas and network services remain, but 805 devices switch to backup power mode and 63 infrastructure nodes go offline. High\u2011acuity ICU patients are most exposed (e.g., 16 in MICU, 13 in SICU, 12 in CVICU) and each affected ward now needs extra crash carts (ED, MICU, SDU, SICU, CCU, CVICU, OR, PACU) with 2\u20133 units available elsewhere as substitutes [ATS-CR].",
+      "citations": [
+        "ATS-CR"
+      ],
+      "latency_ms": 27670.9
+    },
+    {
+      "id": "q38",
+      "category": "impact",
+      "question": "What if ventilator #3 breaks?",
+      "correct": false,
+      "missing": [
+        "0"
+      ],
+      "any_of_ok": true,
+      "grounded": false,
+      "answer": "Ventilator\u202f#3 failure would affect 1 bed in MICU, but no patients are currently on that bed. The MICU has 7 other ventilators available on\u2011site, with additional units nearby (e.g., in SICU) to cover the loss. No power or gas impact is expected.",
+      "citations": [],
+      "latency_ms": 8755.0
+    },
+    {
+      "id": "q39",
+      "category": "impact",
+      "question": "What happens if the oxygen manifold fails?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "The oxygen manifold failure disables medical\u2011gas delivery to all 17 inpatient wards, affecting 344 beds and 267 patients, including 40 high\u2011acuity ICU patients (e.g., MICU, SICU, CVICU) who lose oxygen supply and related equipment [O2-MAN][WARD-MICU][WARD-SICU][WARD-CVICU][WARD-CCU][WARD-CARD][WARD-NEURO][WARD-SDU][WARD-ONC][WARD-ORTHO][WARD-OR][WARD-PACU][WARD-ED][WARD-MEDA][WARD-MEDB][WARD-SURG][WARD-TXP]. No backup oxygen sources or battery\u2011powered substitutes are available, so immediate contingency actions (e.g., portable oxygen tanks, transfer to unaffected areas) are required.",
+      "citations": [
+        "O2-MAN",
+        "WARD-MICU",
+        "WARD-SICU",
+        "WARD-CVICU",
+        "WARD-CCU",
+        "WARD-CARD",
+        "WARD-NEURO",
+        "WARD-SDU",
+        "WARD-ONC",
+        "WARD-ORTHO",
+        "WARD-OR",
+        "WARD-PACU",
+        "WARD-ED",
+        "WARD-MEDA",
+        "WARD-MEDB",
+        "WARD-SURG",
+        "WARD-TXP"
+      ],
+      "latency_ms": 28473.0
+    },
+    {
+      "id": "q40",
+      "category": "impact",
+      "question": "What is the impact of a UPS 3 failure?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "UPS\u202f3 failure impacts 12 wards, affecting 176 inpatient beds and 125 patients (including 71 high\u2011acuity ICU patients) and disabling 197 critical assets across the hospital, with no backup battery time available. Affected wards include CARD (28\u202fbeds,\u202f25\u202fpatients), SDU (24\u202fbeds,\u202f24\u202fpatients), MICU (20\u202fbeds,\u202f16\u202fpatients), NEURO (14\u202fbeds,\u202f14\u202fpatients), SICU (16\u202fbeds,\u202f13\u202fpatients), CVICU (12\u202fbeds,\u202f12\u202fpatients), TXP (12\u202fbeds,\u202f12\u202fpatients), CCU (10\u202fbeds,\u202f9\u202fpatients), ED (24\u202fbeds,\u202f0\u202fpatients), PACU (12\u202fbeds,\u202f0\u202fpatients), OR (4\u202fbeds,\u202f0\u202fpatients) and IMG (0\u202fbeds) [UPS-3][WARD-CARD][WARD-SDU][WARD-MICU][WARD-NEURO][WARD-SICU][WARD-CVICU][WARD-TXP][WARD-CCU][WARD-ED][WARD-PACU][WARD-OR][WARD-IMG].",
+      "citations": [
+        "UPS-3",
+        "WARD-CARD",
+        "WARD-SDU",
+        "WARD-MICU",
+        "WARD-NEURO",
+        "WARD-SICU",
+        "WARD-CVICU",
+        "WARD-TXP",
+        "WARD-CCU",
+        "WARD-ED",
+        "WARD-PACU",
+        "WARD-OR",
+        "WARD-IMG"
+      ],
+      "latency_ms": 25039.4
+    },
+    {
+      "id": "q41",
+      "category": "impact",
+      "question": "If the floor 6 normal panel loses power, what is impacted?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "The loss of the Floor\u202f6 Normal Branch Panel disables power to 27 inpatient beds across two wards \u2013 SURG (15 beds, 12 patients) and ORTHO (12 beds, 10 patients) \u2013 affecting 22 patients and 116 pieces of equipment, 60 of which run on battery for about 60\u202fminutes [PNL-6N]. Critical assets such as crash carts, SCD pumps and wheelchairs in those wards will need to be sourced from other locations, and the affected circuit breakers are listed in the impact report [WARD\u2011SURG][WARD\u2011ORTHO].",
+      "citations": [
+        "PNL-6N"
+      ],
+      "latency_ms": 24152.4
+    },
+    {
+      "id": "q42",
+      "category": "impact",
+      "question": "What happens if core switch 1 fails?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "Core Switch\u202f1 failure is critical to the network, knocking out 197 network\u2011dependent assets and affecting 12 wards, 176 inpatient beds and 125 patients hospital\u2011wide. All ICU wards (MICU, SICU, CVICU, CCU, NEURO, TXP) lose connectivity for their high\u2011acuity patients, and the ED, PACU, OR and imaging also lose network service. No backup battery power is available for the affected equipment [CORE-1][WARD-CARD][WARD-SDU][WARD-MICU][WARD-NEURO][WARD-SICU][WARD-CVICU][WARD-TXP][WARD-CCU][WARD-ED][WARD-PACU][WARD-OR][WARD-IMG].",
+      "citations": [
+        "CORE-1",
+        "WARD-CARD",
+        "WARD-SDU",
+        "WARD-MICU",
+        "WARD-NEURO",
+        "WARD-SICU",
+        "WARD-CVICU",
+        "WARD-TXP",
+        "WARD-CCU",
+        "WARD-ED",
+        "WARD-PACU",
+        "WARD-OR",
+        "WARD-IMG"
+      ],
+      "latency_ms": 16998.1
+    },
+    {
+      "id": "q43",
+      "category": "impact",
+      "question": "What if the medical air compressor plant fails?",
+      "correct": false,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": false,
+      "answer": "66 beds (20\u202fMICU,\u202f16\u202fSICU,\u202f12\u202fCVICU,\u202f10\u202fCCU,\u202f8\u202fOR) would lose medical\u2011air supply, affecting 50 patients \u2013 all high\u2011acuity ICU cases in MICU, SICU, CVICU and CCU \u2013 and 40 critical\u2011care assets across those wards; the OR would lose its air but has no patients at present. The failure is classified as a critical medical\u2011gas outage with no battery backup and impacts five wards in total [AIR\u2011COMP][WARD\u2011MICU][WARD\u2011SICU][WARD\u2011CVICU][WARD\u2011CCU][WARD\u2011OR][PT\u201142\u201100216][PT\u201142\u201100415][PT\u201142\u201100466][PT\u201142\u201100703][PT\u201142\u201100747][PT\u201142\u201100928][PT\u201142\u201100951][PT\u201142\u201100990][PT\u201142\u201101037][PT\u201142\u201101044].",
+      "citations": [],
+      "latency_ms": 21607.9
+    },
+    {
+      "id": "q44",
+      "category": "impact",
+      "question": "Impact if the life safety transfer switch fails?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "399 assets, 44 infrastructure nodes, 165 inpatient beds and 137 patients across all 14 wards would lose power, with 194 critical assets forced onto battery backup for at least 60\u202fminutes [ATS-LS]. All ICU units (MICU 16 pts, SICU 13, CVICU 12, CCU 9) contain high\u2011acuity patients who would be directly impacted by the loss of the life\u2011safety transfer switch [ATS-LS].",
+      "citations": [
+        "ATS-LS"
+      ],
+      "latency_ms": 20015.0
+    },
+    {
+      "id": "q45",
+      "category": "impact",
+      "question": "What happens if CKT-CARD-03 trips?",
+      "correct": true,
+      "missing": [],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "4 beds and 4 patients in CARD lose power; 17 assets (including monitors and ventilators) switch to battery for up to 240\u202fmin. No immediate substitute equipment is needed, but a wheelchair must be sourced from other wards if required [CKT-CARD-03][WARD-CARD][PT-42-00876][PT-42-01141][PT-42-00935][PT-42-01182]",
+      "citations": [
+        "CKT-CARD-03",
+        "WARD-CARD",
+        "PT-42-00876",
+        "PT-42-01141",
+        "PT-42-00935",
+        "PT-42-01182"
+      ],
+      "latency_ms": 10162.9
+    },
+    {
+      "id": "q46",
+      "category": "dependency",
+      "question": "What does AST-VENTILATOR-0003 depend on?",
+      "correct": false,
+      "missing": [
+        "CKT-MICU-03",
+        "ZV-O2-MICU"
+      ],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "AST\u2011VENTILATOR\u20110003 depends on the MICU power circuit (CKT\u2011MICU\u201103), the MICU medical\u2011air zone valve (ZV\u2011AIR\u2011MICU), the MICU O\u2082 zone valve (ZV\u2011O2\u2011MICU), the medical\u2011air compressor plant (AIR\u2011COMP), the O\u2082 reserve manifold (O2\u2011MAN), the floor\u20112 critical branch panel (PNL\u20112CR), two automatic transfer switches (ATS\u2011CR and ATS\u2011LS), the bulk liquid O\u2082 tank (O2\u2011BULK), and optionally the emergency generators (GEN\u20111, GEN\u20112) and utility feed (UTIL\u20111) [AST-VENTILATOR-0003].",
+      "citations": [
+        "AST-VENTILATOR-0003"
+      ],
+      "latency_ms": 11101.3
+    },
+    {
+      "id": "q47",
+      "category": "dependency",
+      "question": "What powers the floor 4 critical panel? What is it fed by?",
+      "correct": false,
+      "missing": [
+        "ATS-CR"
+      ],
+      "any_of_ok": true,
+      "grounded": false,
+      "answer": "The Floor\u202f4 Critical Branch Panel (PNL\u20114CR) is fed by an Automatic Transfer Switch (ATS\u2011CR)\u202f[PNL\u20114CR]; the ATS draws from the main utility feed (UTIL\u20111) and can also be powered by Emergency Generator\u202f2 (GEN\u20112) if needed\u202f[ATS\u2011CR][GEN\u20112][UTIL\u20111].",
+      "citations": [],
+      "latency_ms": 11574.5
+    },
+    {
+      "id": "q48",
+      "category": "dependency",
+      "question": "What does bed BED-MICU-201A depend on?",
+      "correct": false,
+      "missing": [
+        "CKT-MICU-01",
+        "ZV-O2-MICU"
+      ],
+      "any_of_ok": true,
+      "grounded": false,
+      "answer": "BED\u2011MICU\u2011201A depends on the MICU power circuit (CKT\u2011MICU\u201101), the medical\u2011air zone valve (ZV\u2011AIR\u2011MICU), the O\u2082 zone valve (ZV\u2011O2\u2011MICU), the medical\u2011air compressor plant (AIR\u2011COMP), the O\u2082 reserve manifold (O2\u2011MAN), the floor\u20112 critical branch panel (PNL\u20112CR), two automatic transfer switches (ATS\u2011CR and ATS\u2011LS), the bulk liquid O\u2082 tank (O2\u2011BULK), and optionally the emergency generators (GEN\u20111, GEN\u20112) and utility feed (UTIL\u20111) [BED\u2011MICU\u2011201A].",
+      "citations": [],
+      "latency_ms": 13016.3
+    },
+    {
+      "id": "q49",
+      "category": "patient",
+      "question": "Where is patient PT-42-00119 right now?",
+      "correct": false,
+      "missing": [
+        "BED-SURG-601A",
+        "WARD-SURG"
+      ],
+      "any_of_ok": true,
+      "grounded": false,
+      "answer": "Patient\u202fPT\u201142\u201100119 is in General Surgery (SURG) on bed\u202fBED\u2011SURG\u2011601A, room\u202fRM\u2011SURG\u2011601, with several bedside assets (PCA pump, infusion pumps, smart bed frame, SCD pump) attached.",
+      "citations": [],
+      "latency_ms": 4819.7
+    },
+    {
+      "id": "q50",
+      "category": "patient",
+      "question": "Where is patient PT-42-00155 right now?",
+      "correct": false,
+      "missing": [
+        "BED-CARD-304A",
+        "WARD-CARD"
+      ],
+      "any_of_ok": true,
+      "grounded": true,
+      "answer": "Patient\u202fPT\u201142\u201100155 is in Bed\u202fBED\u2011CARD\u2011304A on the Cardiology Ward (CARD)\u202f\u2014\u202froom\u202fRM\u2011CARD\u2011304, with infusion pumps, a telemetry transmitter, and a smart\u2011bed frame at the bedside [PT-42-00155].",
+      "citations": [
+        "PT-42-00155"
+      ],
+      "latency_ms": 5691.0
+    }
+  ]
+}
